@@ -1,0 +1,184 @@
+\documentclass[12pt]{iopart}
+% \usepackage{extsizes}
+% \usepackage[super,sort&compress,comma]{natbib} 
+% \usepackage[version=3]{mhchem}
+\usepackage[left=1.5cm, right=1.5cm, top=1.785cm, bottom=2.0cm]{geometry}
+% \usepackage{balance}
+% \usepackage{mathptmx}
+% \usepackage{sectsty}
+\usepackage{graphicx} 
+\usepackage{lastpage}
+% \usepackage[format=plain,justification=justified,singlelinecheck=false,font={stretch=1.125,small,sf},labelfont=bf,labelsep=space]{caption}
+\usepackage{float}
+\usepackage{fancyhdr}
+\usepackage{fnpos}
+\usepackage[english]{babel}
+\addto{\captionsenglish}{%
+  \renewcommand{\refname}{Notes and references}
+}
+% \usepackage{array}
+% \usepackage{droidsans}
+% \usepackage{charter}
+\usepackage[T1]{fontenc}
+\usepackage[usenames,dvipsnames]{xcolor}
+\usepackage{setspace}
+\usepackage[compact]{titlesec}
+\usepackage{hyperref}
+\usepackage{siunitx}
+% \DeclareSIUnit\elementarycharge{\protect \protect \unhbox \voidb@x \hbox {\protect $\relax e$}}
+% \DeclareSIUnit\elementarycharge{\protect \protect \unhbox \voidb@x \hbox {\protect $\relax e$}}
+% \DeclareSIUnit\angstrom{\text {Å}}
+% \usepackage{epstopdf}
+\newcommand{\FAU}{Institute of Micro- and Nanostructure Research (IMN) \& Center for Nanoanalysis and Electron Microscopy (CENEM), Friedrich Alexander-Universität Erlangen-Nürnberg, IZNF, 91058 Erlangen, Germany}
+\newcommand{\UCBMaterials}{Department of Materials Science and Engineering, University of California Berkeley, Berkeley, California 94720, United States}
+\newcommand{\LBLMSD}{Materials Sciences Division, Lawrence Berkeley National Laboratory, Berkeley, California 94720, United States}
+\newcommand{\Foundry}{The Molecular Foundry, Lawrence Berkeley National Laboratory, Berkeley, California 94720, United
+States}
+\begin{document}
+
+% \title[Three-dimensional atomic-resolution ptychographic phase-contrast electron tomography beyond the depth of focus limit]{Three-dimensional atomic-resolution ptychographic phase-contrast electron tomography beyond the depth of focus limit}
+\title{Multi-slice electron ptychographic tomography for three-dimensional phase-contrast microscopy beyond the depth of field limits}
+% \author{Anonymous}
+
+\author{Andrey Romanov}
+\address{\FAU}
+\author{Min Gee Cho}
+\address{\Foundry}
+\address{\UCBMaterials}
+\author{Mary Cooper Scott}
+\address{\UCBMaterials}
+\address{\LBLMSD}
+\address{\Foundry}
+\author{Philipp Pelz}
+\address{\FAU}
+\ead{philipp.pelz@fau.de}
+\vspace{10pt}
+\begin{indented}
+\item[]January 2024
+\end{indented}
+%Resolving single atoms in large-scale volumes has been a goal of atomic resolution microscopy for a long time. Electron microscopy has come close to this goal using a combination of advanced electron optics and computational imaging algorithms. However, atomic-resolution 3D phase-contrast imaging in volumes larger than the depth-of-field limit of the electron optics has so far been out of reach. 
+\begin{abstract}
+Electron ptychography is a powerful computational method for atomic-resolution imaging with high contrast for weakly and strongly scattering elements. Modern algorithms coupled with fast and efficient detectors allow imaging specimens with tens of nanometers thicknesses with sub-0.5 Ångstrom lateral resolution. 
+However, the axial resolution in these approaches is currently limited to a few nanometers, limiting their ability to solve novel atomic structures ab initio. Here, we experimentally demonstrate multi-slice ptychographic electron tomography, which allows atomic resolution three-dimensional phase-contrast imaging in a volume surpassing the depth of field limits. We reconstruct tilt-series 4D-STEM measurements of a $\mathrm{Co_3O_4}$ nanocube, yielding \SI{2}{\angstrom} axial and \SI{0.7}{\angstrom} transverse resolution in a reconstructed volume of $\mathrm{(18.2 nm)^3}$.
+Our results demonstrate a 13.5-fold improvement in axial resolution compared to multi-slice ptychography while retaining the atomic lateral resolution and the capability to image volumes beyond the depth of field limit.
+Multi-slice ptychographic electron tomography significantly expands the volume of materials accessible using high-resolution electron microscopy. We discuss further experimental and algorithmic improvements necessary to also resolve single weakly scattering atoms in 3D.
+\end{abstract}
+
+Keywords: ptychography, electron microscopy, computational imaging, tomography
+% \submitto{\RPP}
+\section{Introduction}
+Aberration-corrected scanning transmission electron microscopy (STEM) is a highly potent technique for visualizing materials at the atomic level and analyzing their chemical makeup. Advances in equipment, insights into the interactions between electrons and matter, and automation and data analysis enhancements have propelled its prominence for materials characterization. Lately, the application of computational imaging approaches that leverage 2D position- and 2D momentum-resolved measurements (4D-STEM) has emerged as a formidable method, enabling the imaging of heavy and light elements, pinpointing atomic positions with picometer-level accuracy, and charting out phase, orientation, and strain across extensive areas.
+With the latest generation of ultrafast direct electron detectors (DEDs), new capabilities and methods that were previously inaccessible are unlocked. Fast DEDs' high detective quantum efficiency allows imaging of beam-sensitive materials at unprecedented resolution and precision. Computational imaging methods like integrated center of mass imaging (iCOM) \cite{Lazic_Bosch_Lazar_2016}, optimum bright-field (OBF) imaging \cite{Ooe_2023}, and electron ptychography \cite{Yang_2016} utilize 4D-STEM datasets to produce high-contrast, high-resolution images of beam-sensitive materials like metal-organic frameworks and zeolites \cite{Peng_2022, Sha_Cui_Li_Zhang_Yang_Li_Yu_2023}, Li-ion battery materials \cite{Lozano_Martinez_Jin_Nellist_Bruce_2018}, polymers and perovskite materials\cite{Reis_2018}. A new frontier of electron microscopy is the recovery of three-dimensional information from 4D-STEM datasets.  
+The motivation for extracting three-dimensional atomic resolution information from materials is given by our ability to tailor materials properties through engineering e.g. strain, defects, interfaces, and polarization at the atomic scale and induce novel material functionalities. 
+Three-dimensional imaging methods can be classified into depth sectioning methods, which recover 3D information without tilting the specimen, and tomographic methods, which recover 3D information from tilt-series data. Both branches can be subdivided into incoherent methods, which do not model wave propagation within the sample, and coherent methods, which provide phase contrast and often allow modeling and recovering aberrations and other nuisance parameters. 
+Coherent depth sectioning in the STEM was first demonstrated on weakly scattering nanomaterials from a single 4D-STEM dataset using multi-slice electron ptychography (MSP) \cite{Gao_2017_3dptycho}. More recent work employing an advanced MSP reconstruction algorithm allowed the solution of multiple scattering in thick crystalline slabs and reaching the physical resolution limits in the transverse direction \cite{chen2021electron}. Additionally, MSP can surpass the axial resolution limit set by the numerical aperture of the electron optics at high electron fluences. So far, an axial resolution of \SI{2.74}{\nano\meter} has been demonstrated using this method \cite{Leary_2023}. MSP has since been applied to a wealth of materials, resulting in high-resolution imaging of zeolites \cite{zhang2023three}, three-dimensional imaging of dislocation cores in $\mathrm{SrTiO_3}$ \cite{sha2023sub}, and computational crystal mistilt correction \cite{sha2022deep}. This quick adaptation of MSP to study different materials systems demonstrates the usefulness of 3D phase-contrast imaging based on 4D-STEM. However, sub-nanometer resolution using this technique can only be expected with extremely high fluence and the most advanced electron optics \cite{Chen_Shao_Jiang_Muller_2021}.\\
+Incoherent depth sectioning can be performed using the high-angle annular dark-field (HAADF) signal. Focal-series HAADF-STEM can be used to obtain three-dimensional depth sections with several nanometer axial resolution \cite{Xin_Muller_2009,Behan_2009,VanDyck_2010,Ishikawa_2014,Ishikawa_2015,Ishikawa_2020,Yang_2015,Hovden_Xin_Muller_2011}. Further depth sectioning approaches include center-of-mass based depth sectioning \cite{Robert_2022}, S-matrix virtual depth sectioning from 4D-STEM focal series \cite{Brown_2022,Terzoudis_Findlay_2023}, and virtual sectioning from multi-segment detectors \cite{Rose_2022,Lee_Kaiser_Rose_2019}
+\cite{Bosch_Lazic_2019}.\\
+A solution to the problem of limited axial resolution is the collection of tilt-series measurements and subsequent tomographic reconstruction. 
+This approach yields 3D atomic resolution volumes but comes with the additional complexity of aligning atomic-resolution high-dimensional datasets. 
+Ptychographic electron tomography was first realized at the nanoscale \cite{Ding_2022}, demonstrating improved contrast for imaging hybrid materials.
+Atomic resolution single-slice ptychographic tomography (SSPT) was recently demonstrated on a 2D material \cite{Hofer_Mustonen_Skakalova_Pennycook_2023} and on a complex double-wall carbon nanotube filled with a $\mathrm{Zr_{11}Te_{50}}$ structure \cite{Pelz_2023}.\\
+These works used the projection approximation to reconstruct 2D projection images of the sample, from which the 3D atomic structure was either directly determined by peak fitting \cite{Hofer_Mustonen_Skakalova_Pennycook_2023}, or a 3D volume was reconstructed from which an atomic model was determined \cite{Pelz_2023}. The projection approximation limits the applicability of this approach to a few nanometer-thick materials.\\
+ADF-STEM-based atomic resolution tomography \cite{Scott_2012} was developed to solve the atomic structure of metallic nanoparticles and 2D materials \cite{Miao_Ercius_Billinge_2016}. It is also limited by the projection approximation.\\
+The depth resolution of focal-series HAADF-STEM can be increased if a combined focal-tilt series is recorded and the three-dimensional contrast transfer function is iteratively deconvolved. This approach has been demonstrated at nanometer-scale resolution both using Fourier-space deconvolution \cite{Hovden_2014,Hovden_2014b} and real-space deconvolution \cite{Dahmen_2015, Dahmen_Jonge_2014,Dahmen_2015b}. Atomic resolution imaging should also be achievable \cite{Yalisove_Sung_Ercius_Hovden_2021}.\\
+Many coherent approaches for three-dimensional imaging using scanning diffraction measurements originate in X-ray or visible light microscopy, where they are seeing widespread application. The foundation for later tomographic algorithms extending beyond the depth of field limit was laid with the realization of MSP \cite{maiden2012ptychographic} at visible wavelengths. Later, this algorithm was applied also in the hard X-ray regime \cite{Tsai_Sicairos_2016}, \cite{hu2022multi}. Still, the application has been limited to proof-of-principle demonstrations, mainly because the depth of field of X-ray optics is quite large, and modeling propagation or multiple scattering within the sample is often unnecessary. The first demonstration of a sequential approach to ptychographic tomography showed a 3D reconstruction of bone at 150 nm resolution using hard X-rays and zone-plate optics \cite{Dierolf_2010}. This approach is now prevalent at many X-ray beamlines worldwide, offering improved resolution and sensitivity compared to other phase-contrast imaging methods. The sequential algorithm can be improved by reconstructing the volume directly from the diffraction measurements in a joint reconstruction using the single-slice approximation \cite{Chang_Enfedaque_Marchesini_2019,kahnt2019coupled,aslan2019joint,nikitin2019photon}. The next step in model complexity is to solve a multi-slice ptychography problem at every tilt angle and then use this information in a subsequent tomography reconstruction. This sequential approach to multi-slice ptychographic tomography (MSPT) has been realized in proof-of-principle experiments at visible \cite{li2018multi} and X-ray \cite{kahnt2021multi} wavelengths. The multi-slice ptychographic and tomographic reconstructions can also be combined in a joint MSPT reconstruction algorithm that couples all diffraction measurements directly to the reconstructed volume without intermediate results \cite{Gilles_Nashed_Du_Jacobsen_Wild_2018,ozturk2018multi,jacobsen2018relaxation,huang2019resolving,Du_Nashed_Kandel_Gürsoy_Jacobsen_2020}. This approach requires good initial guesses of all nuisance parameters and has not been realized yet experimentally. Another interesting experimental development is precession MSP
+\cite{Shimomura_Hirose_Takahashi_2018}, where the sample is tilted to a few small angles, and a joint 3D reconstruction is performed from these angles with increased axial resolution. This approach might be desirable in STEM since precession is achieved routinely with electron optics by tilting the electron beam instead of the sample.\\
+Ptychographic electron tomography using 4D-STEM was first proposed at atomic resolution \cite{vandenbroek_Koch_2013} using multislice simulations. Due to the success of ADF-STEM-based atomic resolution tomography, Chang et al. proposed a sequential method for SSPT \cite{chang2020ptychographic}, showing improved contrast for weakly scattering elements. Joint multi-slice electron ptychographic tomography has been considered again recently, this time using the entire tilt range available in the TEM and compared with single-slice reconstruction \cite{Lee_Lee_Park_Ophus_Yang_2023} and improved reconstruction compared to a sequential approach demonstrated in simulation.
+ Another approach to 3D phase-contrast imaging with ptychography used the single-particle assumption to image the volume of a virus particle from many identical copies \cite{Pei_Zhou_Huang_Boyce_Kim_Liberti_Hu_Sasaki_Nellist_Zhang_2023}.\\ 
+Here, we advance atomic-scale three-dimensional phase contrast imaging in the STEM by experimentally demonstrating a sequential MSPT approach in a volume breaking the depth of field limit by a factor of 3.7 and at a resolution that allows us to distinguish single Cobalt atoms in a $\mathrm{Co_3O_4}$ nanocube.
+\section{Results}
+\subsection{Experiment}
+Figure \ref{fig:figure1} shows the overall scheme of the sequential approach for MSPT. At each tilt angle $\mathrm{\theta_{\{1 ... n\}}}$, a 4D-STEM scan is taken with overlapping probes as indicated in Fig. \ref{fig:figure1} a) bottom panel, resulting in one ptychographic 4D-STEM dataset per tilt angle. In Fig. \ref{fig:figure1} a) middle panel, each of these 4D-STEM datasets is then reconstructed using an MSP algorithm, and the phase of all reconstructed slices is summed along the beam direction. Examples of the resulting projected phase images are shown in Fig. \ref{fig:figure1} a) top panel.\\
+The principle of the MSP forward model is shown in Fig. 1 b). In Fig. 1 b), a convergent illumination wave function is incident on the sample volume, represented by several complex-valued slices that represent the 3D transmission function of the sample. The wave function is first transmitted at each slice and then propagated in free space using Fresnel propagation. As a last step, the wave function is propagated to the detector plane in the far field of the sample, and its intensity is recorded on a DED.
+\begin{figure*}[ht!]
+\includegraphics[width=1\textwidth]{fig1_new.png}
+\caption{\label{fig:figure1} Atomic resolution multi-slice ptychographic tomography. a) Scheme of the reconstruction algorithm and tilt-series 4D-STEM measurements. b) schematic of the slicing of the volume along the depth direction c) example image of a projected phase image after reconstruction.}
+\end{figure*}
+After reconstruction of the phase projections with MSP, they are denoised using the BM3D algorithm \cite{Dabov_Foi_Katkovnik_Egiazarian_2007} and used as input for a tomographic reconstruction algorithm.
+
+ Synthesis conditions of the $\mathrm{Co_{3}O_{4}}$ nanocube sample are described in Supplementary Section 1. Such $\mathrm{Co_{3}O_{4}}$ nanocubes have been used as building blocks for a new type of strain-engineered core-shell nanoparticles \cite{oh2020design}. We recorded 36 4D-STEM datasets \cite{ophus2019four} with full diffraction patterns over \num{800}x\num{800} probe positions at each tilt angle. The experimental details are described in Supplementary Section 2 and the experimental and reconstruction parameters in Supplementary Section 4 and 5. The experimental parameters amounted to an accumulated fluence of \SI{4.6e4}{\elementarycharge\per\angstrom^2} per projection and \SI{1.6e6}{\elementarycharge\per\angstrom^2} for the whole tilt series. 
+%70e-12*6.241509074e18*11.49425e-6/(0.33^2)=46114.8
+\begin{figure*}[ht!]
+\includegraphics[width=0.8\textwidth]{fig_2_main_inkscape.pdf}
+\caption{\label{fig:figure2} Exemplary ptychographic reconstruction a) before and b) after denoising. c) Reconstructed volume, oriented along the $\mathrm{[11\bar{2}]}$ direction. d) reconstructed volume viewed along the [228] direction.}
+\end{figure*}
+For each 4D-STEM dataset, we perform an MSP reconstruction \cite{sha2022deep} using the parameters in Supplementary Table 2.  Since the $\mathrm{Co_{3}O_{4}}$ cube has a side length of about \SI{13}{\nano\meter}, and the images a field of view of \SI{18.2}{\nano\meter}, we reconstruct a total of five slices with \SI{3}{\nano\meter} thickness along the depth of the cube, corresponding to a slight oversampling of the depth of field along the axial direction, given that the depth of field in our experiment was \SI{5}{\nano\meter}. Exemplary reconstructed summed slices of the phase-contrast images are shown in the top panel of \ref{fig:figure1} a), and examples of experimental diffraction patterns for each angle below the reconstructed phase images. Phase-contrast images from the entire dataset are shown in Supplementary Fig. 1.
+\subsection{Tomography reconstruction}
+After the MSP reconstruction, we apply denoising using BM3D denoising as performed in ADF-STEM tomography \cite{AET_chen2013Wtip}, followed by a Fourier-sparsity constraint to de-emphasize the contrast contribution from the high spatial frequency noise. A Fourier-sparsity constraint is justified since we are imaging a single-grain nanoparticle. A Fourier sparsity constraint would be less suitable for more complex and disordered materials. The results of this denoising process are shown by example in Fig. 2 a) with a reconstructed phase projection and Fig. 2b) with the resulting denoised image. The corresponding power spectra are shown in the insets. 
+From the initially-aligned tilt series, we then perform a 3D reconstruction using joint reconstruction and rigid alignment as in \cite{Pelz_2023}, implemented with the automatic gradient calculation of the pytorch package \cite{paszke2019pytorch} using the projections obtained from MSP shown in Fig. \ref{fig:figure1} a). \\
+Accurate translational and angular alignment is crucial for high-resolution, large-volume tomography reconstruction close to the Nyquist limit. To refine the tilt series alignment, we devised a two-step optimization algorithm for 3D reconstruction from downsampled projection images, shown in Fig. \ref{fig:figure3}. As a forward model, we used an affine transformation (rotation and translation) of the reconstructed volume and then projection onto the specified axis. Comparing the obtained projections with the reference ones using the pixel-wise Mean Squared Error (MSE) loss function, we calculate the loss value for minimization through backpropagation and gradient descent with the Adam algorithm. Within the inner loop, as a first step, we reconstruct the volume with a fixed alignment, and in the outer loop, we refine the alignment with the fixed resulting volume. We executed this algorithm first with a 10\% resolution of the original ptychographic images for translation optimization and then with 20\% resolution of the original for rotation optimization. Furthermore, we applied a 40\% intensity threshold to the original projections before down-scaling to mitigate noise and accentuate the contours of the nanocube.\\
+Further, we utilized the resulting down-scaled reconstructed volume to build a full-scale mask volume (see Supplementary Fig. 3) by binarization after a certain value and following blurring, which quite accurately describes the outline of the nanocube. The projection images derived from this mask volume are then applied to the original ptychographic images to mask out substrate contrast outside of the nanocube. This approach compels a subsequent full-scale reconstruction to focus more intensively on the inner structure of the nanocube.\\
+We conducted the final reconstruction at full resolution with additional implementation of Gaussian blurring with $\sigma=$\SI{0.5} pixel of the reconstructed volume to avoid populating frequencies beyond Nyquist. Two different views of the resulting volume are displayed in Fig. \ref{fig:figure2} c) and d), clearly showing the resolved lattice over the whole reconstructed volume. See Supplementary Video 1 for a movie with the reconstructed volume.
+\begin{figure*}[ht!]
+\centering
+\includegraphics[width=0.45\textwidth]{fig_scheme.pdf}
+\caption{\label{fig:figure3} A block diagram of a two-step optimization algorithm for alignment.}
+\end{figure*}
+\section{Discussion}
+Due to the strong contrast of the amorphous carbon substrate, the reconstructed volume exhibits higher noise than volumes of metal nanoparticles reconstructed previously using ADF-STEM tomography, where the substrate scattering produces only a weak background that is less prominent in the raw data and can be subtracted as a preprocessing step \cite{yang2017deciphering}. Since the volume displays slowly varying contrast for the Co atomic peaks, instead of tracing atomic peaks one by one as done in previous AET work, we register the experimental Co lattice with the crystallographic model of the spinel phase $\mathrm{Co_{3}O_{4}}$ by first finding roughly the right rotation manually then launching a fitting procedure for the Bragg peak positions in Fourier space for experimental and simulated volume, and by optimizing both volumes in real space for translation coincidence comparing a small part of the original volumes. This gives us the positions of the expected atomic sites of Co and O atoms. Peak-by-peak atom-tracing algorithms, as previously reported \cite{AET_miao2016atomic}, proved unstable due to the varying contrast across the volume, stemming from the amorphous carbon substrate.
+\begin{figure*}[ht!]
+\label{fig:figure4}
+\includegraphics[width=1\textwidth]{fig_3.png}
+\caption{a) Unit-cell scale subvolume of size \num{1} x \num{1} x \num{1} $\mathrm{nm}^3$ showing the reconstruction in blue and the fitted model atoms in orange. b) - c) Central subvolume of size \num{2.8} x \num{2.8} x \num{2.8} $\mathrm{nm}^3$ viewed from different directions in orthographic projection. b) [001], c) [110]. Insets: atomic model of spinel phase $\mathrm{Co_{3}O_{4}}$ viewed the corresponding direction. d)-f) slices through the larger subvolume along the d) [100] e) [010] f) [001] directions. Inset: simulated atomic potential in this direction, with bright atoms as Co and weak atoms as O. Scale bar in d)-f): 1 nm.}
+\end{figure*}
+The results of our atom fitting procedure are shown in Fig. \ref{fig:figure4}. For better visual clarity, we show a small 3D rendering of a unit-cell scale subvolume in Fig. \ref{fig:figure4} a), where the coincidence of fitted model atoms and reconstructed volume is visible. In Fig. \ref{fig:figure4} b)-c) we then show larger subvolumes rotated to different zone axes of the $\mathrm{Co_{3}O_{4}}$ crystal. In Figures \ref{fig:figure4} a)-c) The reconstructed volume is shown in orange, while Co atoms of the fitted atomic model are shown in blue. The insets to the bottom right show the crystallographic model of spinel phase $\mathrm{Co_{3}O_{4}}$ viewed along the same orientation as the reconstructed volume. It can be seen that along the low-order [001] and [110] zone axes in Figure \ref{fig:figure4} b) and c), single Co atoms are easily distinguishable. However, there is inhomogeneous contrast across the subvolume stemming from the contribution of the substrate contrast.\\
+Fig. \ref{fig:figure4} d) - f) contain slices through the larger subvolume with the simulated atomic potential as inset. The [100] direction in d) is close to perpendicular to the missing wedge and has sufficient resolution to resolve oxygen atoms. It can be seen that the background level in the reconstruction competes with the oxygen atom contrast.
+Along the other two directions in Fig. \ref{fig:figure4} e) and f), the resolution is too low to distinguish Co and O atoms. We now turn to measuring the three-dimensional resolution using the 3D power spectrum.\\
+\begin{figure*}[ht!]
+\includegraphics[width=1\textwidth]{fig_spect.pdf}
+\caption{\label{fig:figure5} The spectral amplitude of the reconstructed volume, projected (via integration) onto axes X, Y, Z (a) and onto planes XY, XZ, YZ (b, c, d respectively). Axes X and Z are perpendicular to the missing wedge, and Y aligns with the missing wedge direction. Points indicate the highest-resolution peak in the power spectrum. Scale bar in b)-d) \SI{1}{\angstrom^{-1}}}
+\end{figure*}
+To determine the resolution of the reconstruction, we analyzed the 3D spectral amplitude of the reconstructed volume. Fig. \ref{fig:figure5} illustrates a spectral set of projections integrated over one or two axes. The resolution is estimated based on the last peak position for each projection, as shown in Fig \ref{fig:figure5} a). For X and Z axes, it is \SI{1.43}{\angstrom^{-1}}, corresponding to \SI{0.7}{\angstrom} for $\mathrm{d_{\perp_x}}$ and $\mathrm{d_{\perp_ z}}$ perpendicular to the missing wedge. For the Y axis, it is \SI{0.49}{\angstrom^{-1}}, equivalent to \SI{2.04}{\angstrom} for $\mathrm{d_{\parallel}}$ along the missing wedge. This is enough to resolve neighboring Co atoms, the minimal distance between which in the lattice is \SI{2.8}{\angstrom}. Although the minimal distance between Co and O atoms of \SI{1.558}{\angstrom} is comparable to the obtained resolution, our simulations of the electrostatic potential performed for two neighboring, isolated Co and O atoms showed that a point spread function of \SI{1}{\angstrom} FWHM is required to successfully resolve the oxygen atoms in the lattice since the oxygen peaks are about 2.7 times weaker than Co peaks. We obtained this required resolution value as an FWHM of Gaussian blur applied to the simulated electrostatic potential to preserve a 26.3\% dip between two peaks according to the Rayleigh criterion. It should be noted that the resolution of ptychographic reconstructions is element-specific \cite{chen2021electron}. Therefore, the required resolution to resolve weak scatterers next to strongly scattering atoms must be determined case-by-case. \\
+To estimate an error of reconstruction, we also initiated a search for local maxima using the gradient descent method, employing the atomic positions obtained in the previous step as the starting points. This approach enabled us to identify various shifts in the lattice and missing Co atoms within the reconstructed volume, particularly where multiple initial positions converged to the same site. For the cubic structure, we discovered 30401 Co atoms and identified 7656 missing sites, indicating that we successfully reconstructed 80\% of the Co atoms. The mean displacement along perpendicular to the missing wedge directions (X, Z) is \SI{0.5}{\angstrom}, while along the missing wedge direction (Y) it is \SI{0.9}{\angstrom}, resulting in an overall mean displacement distance of \SI{1.3}{\angstrom}. Although these values are smaller than our estimated resolution, they are still substantial enough to hinder precise lattice recovery. It's important to note that this approach assumes the actual nanocube lattice is free from line defects; otherwise, the number of displaced atoms would be significantly higher.\\
+Finding point defects in the volume with the current data quality is therefore difficult. 
+\section{Conclusion}
+We have demonstrated 3D phase-contrast imaging using a sequential MSPT approach at an axial resolution of \SI{2.04}{\angstrom} and transverse resolution of \SI{0.7}{\angstrom} in a reconstructed volume of $\mathrm{(18.2 nm)^3}$, surpassing the depth-of-field limit of 3D phase-contrast electron microscopy by a factor of \num{3.7}, and the depth resolution record of MSP by a factor of \num{13.5}. The relatively high number of missed atomic sites using an adapted atomic fitting procedure suggests that the sequential reconstruction alone may not be sufficient to resolve single light atoms in nanoparticles on amorphous substrate. The sequential reconstruction approach demonstrated here may serve as an input to a subsequent joint reconstruction in the future. The thickness limits of multi-slice ptychography are sample- and detector-dependent, but simulations suggest that reconstructing crystalline oxide samples with \SI{70}{\nano\meter} thickness is feasible with currently available hardware \cite{chen2021electron}. This directly carries over to the thickness limits of MSPT, such that recovery of volumes containing more than one million atoms should be possible. Reaching such a scale will greatly expand the phenomena studied at 3D atomic resolution.\\
+Due to the \SI{2}{\angstrom} resolution in the missing wedge direction, the high background level inside the nanocube, and the low detection efficiency of the 4Dcamera prototype at 200keV electron energy, we could not reliably resolve the oxygen atoms in the $\mathrm{Co_{3}O_{4}}$ lattice in 3D. A further complication for MSPT of nanoparticles is the higher background level due to the amorphous substrate's strong contrast. This background cannot simply be subtracted as in ADF-STEM tomography \cite{Yang_2021}. Since the first demonstrations of ptychographic electron tomography reconstructed thin objects over vacuum \cite{Pelz_2023, Hofer_2023}, and most published results on atomic resolution multi-slice ptychography study crystalline thin-films without substrate, this raises the question of whether crystalline substrates should be adopted for phase-contrast tomography of weakly scattering atoms at atomic resolution until the method has progressed to the point where weakly scattering amorphous materials can be resolved atom-by-atom. We think there is enough room for improvement in algorithmic aspects, experimental design, and hardware by increasing the detection efficiency of the fast-framing 4D-STEM detector such that this point can be reached soon. \\
+Compared to a joint ptychography-tomography reconstruction algorithm \cite{Lee_Lee_Park_Ophus_Yang_2023}, the sequential approach presented here allows the disentangling of the alignment procedure and precise estimation of Euler angles and translation from the tomographic reconstruction. From a practical point of view, the question of how all parameters of such a joint reconstruction can be initialized with a sufficiently good initial guess is still unsolved. Our sequential MSPT approach, which yields initial estimates for all tilt-dependent probes, subpixel probe positions, and initial Euler angles, may be used to bootstrap such a joint reconstruction \cite{you2024near}.\\
+A promising avenue is using more explicit atomistic models in ptychographic tomography, as recently demonstrated in multi-slice ptychography. Directly modeling atoms in the forward pass allows us to more accurately describe thermal diffuse scattering \cite{Diederichs_2024} and improve the resolution of multi-slice ptychography further \cite{Yang_Sha_Cui_Mao_Yu_2024}.
+Certainly, ptychographic electron tomography has an advantage over the ADF-STEM-based method in terms of experimental automation since precise focusing is not required for electron ptychography. This results in less challenging, although more data-intensive experiments, and indicates a bright future for large-scale, high-resolution 4D-STEM-based three-dimensional imaging.
+
+\section{Author Contributions}
+A.R.: Methodology, Investigation, Writing - original draft, Visualization\\
+M.C.S: Investigation, Writing - Review \& Editing, Funding acquisition\\
+M.C.: Investigation, Writing - Review \& Editing\\
+P.M.P: Conceptualization, Investigation, Writing - original draft, Writing - Review \& Editing, Funding acquisition, Project administration\\
+\section{Acknowledgements}
+PP is supported by the Strobe STC research center, Grant No. DMR 1548924 and by an EAM starting grant project ScatterEM.
+MCS is supported by the Strobe STC research center, Grant No. DMR 1548924.
+A.R. is supported by an EAM Starting grant project, ScatterEM.
+M.G.C. is supported by the Electron Distillery program. 
+CO acknowledges support from the Department of Energy Early Career Research Award program. Work at the Molecular Foundry was supported by the Office of Science, Office of Basic Energy Sciences, of the U.S. Department of Energy under Contract No. DE-AC02-05CH11231. 
+PP gratefully acknowledges the scientific support and HPC resources provided by the Erlangen National High Performance Computing Center (NHR@FAU) of the Friedrich-Alexander-Universität Erlangen-Nürnberg (FAU) under the NHR project AtomicTomo3D. NHR funding is provided by federal and Bavarian state authorities. NHR@FAU hardware is partially funded by the German Research Foundation (DFG) – 440719683.
+The 4D Camera was developed under the DOE BES Accelerator and Detector Research Program in collaboration with Gatan, Inc. 
+We thank Peter Ercius for their help with 4Dcamera data acquisition and Colin Ophus for helpful discussions.
+We want to thank Gatan, Inc. as well as P. Denes, A. Minor, J. Ciston, J. Joseph, and I. Johnson, who contributed to the development of the 4D Camera.
+\section{Data Availability}
+The data will be available on Zenodo upon publication.
+\section{Code Availability}
+The code will be available on Zenodo upon publication.
+\section{References}
+\bibliographystyle{unsrt}
+\bibliography{main}
+% \bibliographystyle{rsc}
+
+\end{document}
+
+
+Referee: 1
+
+COMMENTS TO THE AUTHOR(S)
+2. The explanation of Fig. 1(c) is lost.
+4. Scale bars of different quantities are necessary for Fig. 2(a)(b), Fig. 5 and Fig. 6, and why the colors of ptychographic figures are different in Fig 2(a)(b) and Fig. 5.
+
+
+Referee: 2
+
+COMMENTS TO THE AUTHOR(S)
+I would like to express my gratitude to the authors for their interesting scientific work. The research topic is relevant. The authors experimentally demonstrate atomic resolution three-dimensional phase contrast imaging in a volume surpassing the depth of field limits using multi-slice ptychographic electron tomography. At the same time, analyzing the text of the article and the form of presentation of the results, the following observations can be formulated.
+
+3) The "Introduction" section should be supplemented with the goals and objectives of the research. This will make it more informative for readers. The current version only states this: "Here, we advance three-dimensional imaging in electron microscopy by recovering a phase-contrast volume more than three times larger than the depth of field at a resolution that allows us to distinguish single Cobalt atoms in a Co3O4 nanocube in in a volume with 18.2 nm side length.".
+6) In general, the figures lack the notation used in the text of the article. The size of the figures can be reduced.
+7) The authors write that: "We devised a two-step optimization algorithm for 3D reconstruction from down-scaled projection images to refine the tilt series alignment". At the same time, it is not specified which optimization methods were used for this, the objective function and the limiting conditions.
+8) It is not clear whether the error of the results was estimated (for example, the error of repetition). Are the experimental test results representative and sufficient for the one case presented? It is necessary to give explanations in this part.
+9) The article does not have a " Conclusion" section.
