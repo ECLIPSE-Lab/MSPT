@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.36">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="dcterms.date" content="2024-11-01">
+
+<title>Multi-slice electron ptychographic tomography for three-dimensional phase-contrast microscopy beyond the depth of field limits</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-01c78b5cd655e4cd89133cf59d535862.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-c99aa6db1c60553d9bddd16058a49f87.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script async="" src="https://hypothes.is/embed.js"></script>
+<script>
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    document.body.classList.add('hypothesis-enabled');
+  });
+</script>
+
+
+<meta name="citation_title" content="Multi-slice electron ptychographic tomography for three-dimensional phase-contrast microscopy beyond the depth of field limits">
+<meta name="citation_abstract" content="Electron ptychography has revolutionized atomic-scale imaging by providing exceptional contrast for both light and heavy elements. While current technology can achieve remarkable lateral resolution below 0.5 Ångstroms, the depth (axial) resolution has remained limited to several nanometers—until now.
+
+In this work, we introduce multi-slice ptychographic electron tomography, a breakthrough technique that achieves true 3D atomic-resolution imaging beyond conventional depth of field limits. Using a Co₃O₄ nanocube as our test subject, we demonstrate:
+
+- Unprecedented 3D resolution: 2Å axial and 0.7Å transverse resolution
+- Large imaging volume: (18.2 nm)³
+- 13.5× improvement in depth resolution compared to existing methods
+
+This advancement significantly expands the capabilities of high-resolution electron microscopy, opening new possibilities for studying larger material volumes at atomic resolution.
+
+Our ongoing research focuses on further refinements to enable 3D imaging of individual weakly scattering atoms, promising even more detailed insights into material structures.
+">
+<meta name="citation_author" content="Andrey Romanov">
+<meta name="citation_author" content="Min Gee Cho">
+<meta name="citation_author" content="Mary Cooper Scott">
+<meta name="citation_author" content="Philipp Pelz">
+<meta name="citation_publication_date" content="2024-11-01">
+<meta name="citation_cover_date" content="2024-11-01">
+<meta name="citation_year" content="2024">
+<meta name="citation_online_date" content="2024-11-01">
+<meta name="citation_fulltext_html_url" content="https://doi.org/...">
+<meta name="citation_doi" content="10.1234/xxx">
+<meta name="citation_language" content="en">
+<meta name="citation_journal_title" content="Journal of Physics: Materials">
+<meta name="citation_reference" content="citation_title=$\gamma$-alumina: A single-crystal x-ray diffraction study;,citation_author=L’ubomı́r Smrčok;,citation_author=Vratislav Langer;,citation_author=Jan Křest’an;,citation_publication_date=2006;,citation_cover_date=2006;,citation_year=2006;,citation_issue=9;,citation_volume=62;,citation_journal_title=Acta Crystallographica Section C: Crystal Structure Communications;,citation_publisher=International Union of Crystallography;">
+<meta name="citation_reference" content="citation_title=Automated discrete electron tomography&nbsp;– towards routine high-fidelity reconstruction of nanomaterials;,citation_author=Xiaodong Zhuge;,citation_author=Hiroshi Jinnai;,citation_author=Rafal E. Dunin-Borkowski;,citation_author=Vadim Migunov;,citation_author=Sara Bals;,citation_author=Pegie Cool;,citation_author=Anton-Jan Bons;,citation_author=Kees Joost Batenburg;,citation_publication_date=2017-04;,citation_cover_date=2017-04;,citation_year=2017;,citation_doi=10/gdp973;,citation_issn=0304-3991;,citation_volume=175;,citation_journal_title=Ultramicroscopy;">
+<meta name="citation_reference" content="citation_title=Quantitative 3D structural analysis of small colloidal assemblies under native conditions by liquid-cell fast electron tomography;,citation_author=Daniel Arenas Esteban;,citation_author=Da Wang;,citation_author=Ajinkya Kadu;,citation_author=Noa Olluyn;,citation_author=Ana Sánchez-Iglesias;,citation_author=Alejandro Gomez-Perez;,citation_author=Jesús González-Casablanca;,citation_author=Stavros Nicolopoulos;,citation_author=Luis M. Liz-Marzán;,citation_author=Sara Bals;,citation_publication_date=2024-07;,citation_cover_date=2024-07;,citation_year=2024;,citation_issue=1;,citation_doi=10.1038/s41467-024-50652-y;,citation_issn=2041-1723;,citation_volume=15;,citation_journal_title=Nature Communications;,citation_publisher=Nature Publishing Group;">
+<meta name="citation_reference" content="citation_title=A fast algorithm for scanning transmission electron microscopy imaging and 4D-STEM diffraction simulations;,citation_author=Philipp M. Pelz;,citation_author=Alexander Rakowski;,citation_author=Luis Rangel DaCosta;,citation_author=Benjamin H. Savitzky;,citation_author=Mary C. Scott;,citation_author=Colin Ophus;,citation_publication_date=2021;,citation_cover_date=2021;,citation_year=2021;,citation_doi=10/gk752w;,citation_issn=1431-9276, 1435-8115;,citation_journal_title=Microscopy and Microanalysis;,citation_publisher=Cambridge University Press;">
+<meta name="citation_reference" content="citation_title=Reducing electron beam damage through alternative STEM scanning strategies, part II: Attempt towards an empirical model describing the damage process;,citation_author=D. Jannis;,citation_author=A. Velazco;,citation_author=A. Béché;,citation_author=J. Verbeeck;,citation_publication_date=2022-10;,citation_cover_date=2022-10;,citation_year=2022;,citation_doi=10.1016/j.ultramic.2022.113568;,citation_issn=0304-3991;,citation_volume=240;,citation_journal_title=Ultramicroscopy;">
+<meta name="citation_reference" content="citation_title=Reducing electron beam damage through alternative STEM scanning strategies, part i: Experimental findings;,citation_author=A. Velazco;,citation_author=A. Béché;,citation_author=D. Jannis;,citation_author=J. Verbeeck;,citation_publication_date=2022-01;,citation_cover_date=2022-01;,citation_year=2022;,citation_doi=10.1016/j.ultramic.2021.113398;,citation_issn=0304-3991;,citation_volume=232;,citation_journal_title=Ultramicroscopy;">
+<meta name="citation_reference" content="citation_title=Electron tomography based on a total variation minimization reconstruction technique;,citation_author=Bart Goris;,citation_author=Wouter Van den Broek;,citation_author=Kees Joost Batenburg;,citation_author=H Heidari Mezerji;,citation_author=Sara Bals;,citation_publication_date=2012;,citation_cover_date=2012;,citation_year=2012;,citation_volume=113;,citation_journal_title=Ultramicroscopy;,citation_publisher=Elsevier;">
+<meta name="citation_reference" content="citation_title=Reducing the missing wedge: High-resolution dual axis tomography of inorganic materials;,citation_author=Ilke Arslan;,citation_author=Jenna R Tong;,citation_author=Paul A Midgley;,citation_publication_date=2006;,citation_cover_date=2006;,citation_year=2006;,citation_issue=11-12;,citation_volume=106;,citation_journal_title=Ultramicroscopy;,citation_publisher=Elsevier;">
+<meta name="citation_reference" content="citation_title=Prismatic 2.0–simulation software for scanning and high resolution transmission electron microscopy (STEM and HRTEM);,citation_author=Luis Rangel DaCosta;,citation_author=Hamish G Brown;,citation_author=Philipp M Pelz;,citation_author=Alexander Rakowski;,citation_author=Natolya Barber;,citation_author=Peter O’Donovan;,citation_author=Patrick McBean;,citation_author=Lewys Jones;,citation_author=Jim Ciston;,citation_author=MC Scott;,citation_author=others;,citation_publication_date=2021;,citation_cover_date=2021;,citation_year=2021;,citation_volume=151;,citation_journal_title=Micron;,citation_publisher=Elsevier;">
+<meta name="citation_reference" content="citation_title=Rapid aberration measurement with pixelated detectors;,citation_author=Andrew R Lupini;,citation_author=Miaofang Chi;,citation_author=Stephen Jesse;,citation_publication_date=2016;,citation_cover_date=2016;,citation_year=2016;,citation_issue=1;,citation_volume=263;,citation_journal_title=Journal of Microscopy;,citation_publisher=Wiley Online Library;">
+<meta name="citation_reference" content="citation_title=Advanced computing in electron microscopy, 3rd edition;,citation_author=E. J. Kirkland;,citation_publication_date=2020;,citation_cover_date=2020;,citation_year=2020;">
+<meta name="citation_reference" content="citation_title=Electron ptychography achieves atomic-resolution limits set by lattice vibrations;,citation_author=Zhen Chen;,citation_author=Yi Jiang;,citation_author=Yu-Tsun Shao;,citation_author=Megan E Holtz;,citation_author=Michal Odstrčil;,citation_author=Manuel Guizar-Sicairos;,citation_author=Isabelle Hanke;,citation_author=Steffen Ganschow;,citation_author=Darrell G Schlom;,citation_author=David A Muller;,citation_publication_date=2021;,citation_cover_date=2021;,citation_year=2021;,citation_issue=6544;,citation_volume=372;,citation_journal_title=Science;,citation_publisher=American Association for the Advancement of Science;">
+<meta name="citation_reference" content="citation_title=X-ray ptychography with extended depth of field;,citation_author=Esther HR Tsai;,citation_author=Ivan Usov;,citation_author=Ana Diaz;,citation_author=Andreas Menzel;,citation_author=Manuel Guizar-Sicairos;,citation_publication_date=2016;,citation_cover_date=2016;,citation_year=2016;,citation_issue=25;,citation_volume=24;,citation_journal_title=Optics express;,citation_publisher=Optica Publishing Group;">
+<meta name="citation_reference" content="citation_title=Ptychographic microscope for three-dimensional imaging;,citation_author=TM Godden;,citation_author=R Suman;,citation_author=MJ Humphry;,citation_author=JM Rodenburg;,citation_author=AM Maiden;,citation_publication_date=2014;,citation_cover_date=2014;,citation_year=2014;,citation_issue=10;,citation_volume=22;,citation_journal_title=Optics express;,citation_publisher=Optica Publishing Group;">
+<meta name="citation_reference" content="citation_title=Ptychographic transmission microscopy in three dimensions using a multi-slice approach;,citation_author=Andrew M Maiden;,citation_author=Martin J Humphry;,citation_author=John M Rodenburg;,citation_publication_date=2012;,citation_cover_date=2012;,citation_year=2012;,citation_issue=8;,citation_volume=29;,citation_journal_title=JOSA A;,citation_publisher=Optica Publishing Group;">
+<meta name="citation_reference" content="citation_title=Three-dimensional electron ptychography of organic–inorganic hybrid nanostructures;,citation_author=Zhiyuan Ding;,citation_author=Si Gao;,citation_author=Weina Fang;,citation_author=Chen Huang;,citation_author=Liqi Zhou;,citation_author=Xudong Pei;,citation_author=Xiaoguo Liu;,citation_author=Xiaoqing Pan;,citation_author=Chunhai Fan;,citation_author=Angus I Kirkland;,citation_author=others;,citation_publication_date=2022;,citation_cover_date=2022;,citation_year=2022;,citation_issue=1;,citation_volume=13;,citation_journal_title=Nature Communications;,citation_publisher=Nature Publishing Group UK London;">
+<meta name="citation_reference" content="citation_title=Electron ptychography of 2D materials to deep sub-ångström resolution;,citation_author=Yi Jiang;,citation_author=Zhen Chen;,citation_author=Yimo Han;,citation_author=Pratiti Deb;,citation_author=Hui Gao;,citation_author=Saien Xie;,citation_author=Prafull Purohit;,citation_author=Mark W Tate;,citation_author=Jiwoong Park;,citation_author=Sol M Gruner;,citation_author=others;,citation_publication_date=2018;,citation_cover_date=2018;,citation_year=2018;,citation_issue=7714;,citation_volume=559;,citation_journal_title=Nature;,citation_publisher=Nature Publishing Group UK London;">
+<meta name="citation_reference" content="citation_title=A phase retrieval algorithm for shifting illumination;,citation_author=John M Rodenburg;,citation_author=Helen ML Faulkner;,citation_publication_date=2004;,citation_cover_date=2004;,citation_year=2004;,citation_issue=20;,citation_volume=85;,citation_journal_title=Applied physics letters;,citation_publisher=AIP Publishing;">
+<meta name="citation_reference" content="citation_title=An improved ptychographical phase retrieval algorithm for diffractive imaging;,citation_author=Andrew M Maiden;,citation_author=John M Rodenburg;,citation_publication_date=2009;,citation_cover_date=2009;,citation_year=2009;,citation_issue=10;,citation_volume=109;,citation_journal_title=Ultramicroscopy;,citation_publisher=Elsevier;">
+<meta name="citation_reference" content="citation_title=Beugung im inhomogenen primärstrahlwellenfeld. I. Prinzip einer phasenmessung von elektronenbeungungsinterferenzen;,citation_author=Walter Hoppe;,citation_publication_date=1969;,citation_cover_date=1969;,citation_year=1969;,citation_issue=4;,citation_volume=25;,citation_journal_title=Acta Crystallographica Section A: Crystal Physics, Diffraction, Theoretical and General Crystallography;,citation_publisher=International Union of Crystallography;">
+<meta name="citation_reference" content="citation_title=Ion complexation waves emerge at the curved interfaces of layered minerals;,citation_author=Michael L Whittaker;,citation_author=David Ren;,citation_author=Colin Ophus;,citation_author=Yugang Zhang;,citation_author=Laura Waller;,citation_author=Benjamin Gilbert;,citation_author=Jillian F Banfield;,citation_publication_date=2022;,citation_cover_date=2022;,citation_year=2022;,citation_issue=1;,citation_volume=13;,citation_journal_title=Nature communications;,citation_publisher=Nature Publishing Group UK London;">
+<meta name="citation_reference" content="citation_title=Studying atomic structures by aberration-corrected transmission electron microscopy;,citation_author=Knut W Urban;,citation_publication_date=2008;,citation_cover_date=2008;,citation_year=2008;,citation_issue=5888;,citation_volume=321;,citation_journal_title=Science;,citation_publisher=American Association for the Advancement of Science;">
+<meta name="citation_reference" content="citation_title=Correcting nonlinear drift distortion of scanning probe and scanning transmission electron microscopies from image pairs with orthogonal scan directions;,citation_author=Colin Ophus;,citation_author=Jim Ciston;,citation_author=Chris T Nelson;,citation_publication_date=2016;,citation_cover_date=2016;,citation_year=2016;,citation_volume=162;,citation_journal_title=Ultramicroscopy;,citation_publisher=Elsevier;">
+<meta name="citation_reference" content="citation_title=Efficient linear phase contrast in scanning transmission electron microscopy with matched illumination and detector interferometry;,citation_author=Colin Ophus;,citation_author=Jim Ciston;,citation_author=Jordan Pierce;,citation_author=Tyler R Harvey;,citation_author=Jordan Chess;,citation_author=Benjamin J McMorran;,citation_author=Cory Czarnik;,citation_author=Harald H Rose;,citation_author=Peter Ercius;,citation_publication_date=2016;,citation_cover_date=2016;,citation_year=2016;,citation_issue=1;,citation_volume=7;,citation_journal_title=Nature communications;,citation_publisher=Nature Publishing Group UK London;">
+<meta name="citation_reference" content="citation_title=Ptychographic atomic electron tomography: Towards three-dimensional imaging of individual light atoms in materials;,citation_author=Dillan J Chang;,citation_author=Dennis S Kim;,citation_author=Arjun Rana;,citation_author=Xuezeng Tian;,citation_author=Jihan Zhou;,citation_author=Peter Ercius;,citation_author=Jianwei Miao;,citation_publication_date=2020;,citation_cover_date=2020;,citation_year=2020;,citation_issue=17;,citation_volume=102;,citation_journal_title=Physical Review B;,citation_publisher=APS;">
+<meta name="citation_reference" content="citation_title=Observing crystal nucleation in four dimensions using atomic electron tomography;,citation_author=Jihan Zhou;,citation_author=Yongsoo Yang;,citation_author=Yao Yang;,citation_author=Dennis S Kim;,citation_author=Andrew Yuan;,citation_author=Xuezeng Tian;,citation_author=Colin Ophus;,citation_author=Fan Sun;,citation_author=Andreas K Schmid;,citation_author=Michael Nathanson;,citation_author=others;,citation_publication_date=2019;,citation_cover_date=2019;,citation_year=2019;,citation_issue=7762;,citation_volume=570;,citation_journal_title=Nature;,citation_publisher=Nature Publishing Group UK London;">
+<meta name="citation_reference" content="citation_title=Deciphering chemical order/disorder and material properties at the single-atom level;,citation_author=Yongsoo Yang;,citation_author=Chien-Chun Chen;,citation_author=MC Scott;,citation_author=Colin Ophus;,citation_author=Rui Xu;,citation_author=Alan Pryor;,citation_author=Li Wu;,citation_author=Fan Sun;,citation_author=Wolfgang Theis;,citation_author=Jihan Zhou;,citation_author=others;,citation_publication_date=2017;,citation_cover_date=2017;,citation_year=2017;,citation_issue=7639;,citation_volume=542;,citation_journal_title=Nature;,citation_publisher=Nature Publishing Group UK London;">
+<meta name="citation_reference" content="citation_title=Three-dimensional coordinates of individual atoms in materials revealed by electron tomography;,citation_author=Rui Xu;,citation_author=Chien-Chun Chen;,citation_author=Li Wu;,citation_author=Mary C Scott;,citation_author=Wolfgang Theis;,citation_author=Colin Ophus;,citation_author=Matthias Bartels;,citation_author=Yongsoo Yang;,citation_author=Hadi Ramezani-Dakhel;,citation_author=Michael R Sawaya;,citation_author=others;,citation_publication_date=2015;,citation_cover_date=2015;,citation_year=2015;,citation_issue=11;,citation_volume=14;,citation_journal_title=Nature materials;,citation_publisher=Nature Publishing Group UK London;">
+<meta name="citation_reference" content="citation_title=Three-dimensional imaging of dislocations in a nanoparticle at atomic resolution;,citation_author=Chien-Chun Chen;,citation_author=Chun Zhu;,citation_author=Edward R White;,citation_author=Chin-Yi Chiu;,citation_author=MC Scott;,citation_author=BC Regan;,citation_author=Laurence D Marks;,citation_author=Yu Huang;,citation_author=Jianwei Miao;,citation_publication_date=2013;,citation_cover_date=2013;,citation_year=2013;,citation_issue=7443;,citation_volume=496;,citation_journal_title=Nature;,citation_publisher=Nature Publishing Group UK London;">
+<meta name="citation_reference" content="citation_title=Recent advances in the application of electron tomography to materials chemistry;,citation_author=Rowan Leary;,citation_author=Paul A Midgley;,citation_author=John Meurig Thomas;,citation_publication_date=2012;,citation_cover_date=2012;,citation_year=2012;,citation_issue=10;,citation_volume=45;,citation_journal_title=Accounts of chemical research;,citation_publisher=ACS Publications;">
+<meta name="citation_reference" content="citation_title=The scattering of electrons by atoms and crystals. I. A new theoretical approach;,citation_author=John M Cowley;,citation_author=A F_ Moodie;,citation_publication_date=1957;,citation_cover_date=1957;,citation_year=1957;,citation_issue=10;,citation_volume=10;,citation_journal_title=Acta Crystallographica;,citation_publisher=International Union of Crystallography;">
+<meta name="citation_reference" content="citation_title=Imaging and dynamics of light atoms and molecules on graphene;,citation_author=Jannik C Meyer;,citation_author=C Oe Girit;,citation_author=MF Crommie;,citation_author=A Zettl;,citation_publication_date=2008;,citation_cover_date=2008;,citation_year=2008;,citation_issue=7202;,citation_volume=454;,citation_journal_title=Nature;,citation_publisher=Nature Publishing Group UK London;">
+<meta name="citation_reference" content="citation_title=Grains and grain boundaries in single-layer graphene atomic patchwork quilts;,citation_author=Pinshane Y Huang;,citation_author=Carlos S Ruiz-Vargas;,citation_author=Arend M Van Der Zande;,citation_author=William S Whitney;,citation_author=Mark P Levendorf;,citation_author=Joshua W Kevek;,citation_author=Shivank Garg;,citation_author=Jonathan S Alden;,citation_author=Caleb J Hustedt;,citation_author=Ye Zhu;,citation_author=others;,citation_publication_date=2011;,citation_cover_date=2011;,citation_year=2011;,citation_issue=7330;,citation_volume=469;,citation_journal_title=Nature;,citation_publisher=Nature Publishing Group UK London;">
+<meta name="citation_reference" content="citation_title=Electron microscopy image enhanced;,citation_author=Maximilian Haider;,citation_author=Stephan Uhlemann;,citation_author=Eugen Schwan;,citation_author=Harald Rose;,citation_author=Bernd Kabius;,citation_author=Knut Urban;,citation_publication_date=1998;,citation_cover_date=1998;,citation_year=1998;,citation_issue=6678;,citation_volume=392;,citation_journal_title=Nature;,citation_publisher=Nature Publishing Group UK London;">
+<meta name="citation_reference" content="citation_title=VESTA: A three-dimensional visualization system for electronic and structural analysis;,citation_author=Koichi Momma;,citation_author=Fujio Izumi;,citation_publication_date=2008;,citation_cover_date=2008;,citation_year=2008;,citation_issue=3;,citation_volume=41;,citation_journal_title=Journal of Applied crystallography;,citation_publisher=International Union of Crystallography;">
+<meta name="citation_reference" content="citation_title=Solving complex nanostructures with ptychographic atomic electron tomography;,citation_author=Philipp M Pelz;,citation_author=Sinéad M Griffin;,citation_author=Scott Stonemeyer;,citation_author=Derek Popple;,citation_author=Hannah DeVyldere;,citation_author=Peter Ercius;,citation_author=Alex Zettl;,citation_author=Mary C Scott;,citation_author=Colin Ophus;,citation_publication_date=2023;,citation_cover_date=2023;,citation_year=2023;,citation_issue=1;,citation_volume=14;,citation_journal_title=Nature Communications;,citation_publisher=Nature Publishing Group UK London;">
+<meta name="citation_reference" content="citation_title=Matplotlib: A 2D graphics environment;,citation_author=John D Hunter;,citation_publication_date=2007;,citation_cover_date=2007;,citation_year=2007;,citation_issue=03;,citation_volume=9;,citation_journal_title=Computing in science &amp;amp;amp; engineering;,citation_publisher=IEEE Computer Society;">
+<meta name="citation_reference" content="citation_title=Stempy: Toolkit for processing 4D STEM image data on HPC;,citation_author=Chris Harris;,citation_author=Patrick Avery;,citation_author=Peter Ercius;,citation_doi= 10.5281/zenodo.6546416;">
+<meta name="citation_reference" content="citation_title=Cross platform, open source application for the processing, visualization, and analysis of 3D tomography data;,citation_author=Rob Hovden Marcus Hanwell;,citation_doi=10.5281/zenodo.3905468;">
+<meta name="citation_reference" content="citation_title=Blind ptychographic phase retrieval via convergent alternating direction method of multipliers;,citation_author=H. Chang;,citation_author=P. Enfedaque;,citation_author=S. Marchesini;,citation_publication_date=2019;,citation_cover_date=2019;,citation_year=2019;,citation_issue=1;,citation_volume=12;,citation_journal_title=SIAM Journal on Imaging Sciences;,citation_publisher=SIAM;">
+<meta name="citation_reference" content="citation_title=The 4D camera–an 87 kHz frame-rate detector for counted 4D-STEM experiments;,citation_author=Peter Ercius;,citation_author=others;,citation_publication_date=2020;,citation_cover_date=2020;,citation_year=2020;,citation_issue=S2;,citation_volume=26;,citation_journal_title=Microscopy and Microanalysis;,citation_publisher=Cambridge University Press;">
+<meta name="citation_reference" content="citation_title=Iterative least-squares solver for generalized maximum-likelihood ptychography;,citation_author=M. Odstrčil;,citation_author=A. Menzel;,citation_author=M. Guizar-Sicairos;,citation_publication_date=2018-02;,citation_cover_date=2018-02;,citation_year=2018;,citation_issue=3;,citation_doi=10/gcx53m;,citation_issn=1094-4087;,citation_volume=26;,citation_journal_title=Optics Express;">
+<meta name="citation_reference" content="citation_title=Reconstructing state mixtures from diffraction measurements;,citation_author=Pierre Thibault;,citation_author=Andreas Menzel;,citation_publication_date=2013;,citation_cover_date=2013;,citation_year=2013;,citation_issue=7435;,citation_volume=494;,citation_journal_title=Nature;,citation_publisher=Nature Publishing Group;">
+<meta name="citation_reference" content="citation_title=A field guide to forward-backward splitting with a FASTA implementation;,citation_author=Tom Goldstein;,citation_author=Christoph Studer;,citation_author=Richard Baraniuk;,citation_publication_date=2014-11;,citation_cover_date=2014-11;,citation_year=2014;,citation_fulltext_html_url=http://arxiv.org/abs/1411.3406;,citation_journal_title=arXiv:1411.3406 [cs];">
+<meta name="citation_reference" content="citation_title=Odlgroup/odl: ODL 0.7.0;,citation_author=Jonas Adler;,citation_author=others;,citation_publication_date=2018-09;,citation_cover_date=2018-09;,citation_year=2018;,citation_fulltext_html_url=https://zenodo.org/record/1442734;,citation_doi=10.5281/zenodo.1442734;">
+<meta name="citation_reference" content="citation_title=Debye–waller factor for elemental crystals;,citation_author=VF Sears;,citation_author=SA Shelley;,citation_publication_date=1991;,citation_cover_date=1991;,citation_year=1991;,citation_issue=4;,citation_volume=47;,citation_journal_title=Acta Crystallographica Section A: Foundations of Crystallography;,citation_publisher=International Union of Crystallography;">
+<meta name="citation_reference" content="citation_title=Operation of TEAM i in a user environment at NCEM;,citation_author=Peter Ercius;,citation_author=Markus Boese;,citation_author=Thomas Duden;,citation_author=Ulrich Dahmen;,citation_publication_date=2012-08;,citation_cover_date=2012-08;,citation_year=2012;,citation_issue=4;,citation_doi=10.1017/S1431927612001225;,citation_issn=1435-8115, 1431-9276;,citation_volume=18;,citation_journal_title=Microscopy and Microanalysis;,citation_publisher=Cambridge University Press;">
+<meta name="citation_reference" content="citation_title=The ASTRA toolbox: A platform for advanced algorithm development in electron tomography;,citation_author=Wim Aarle;,citation_author=others;,citation_publication_date=2015-10;,citation_cover_date=2015-10;,citation_year=2015;,citation_doi=10/f7q2jk;,citation_issn=0304-3991;,citation_volume=157;,citation_journal_title=Ultramicroscopy;">
+<meta name="citation_reference" content="citation_title=A multi-resolution approach to the 3D reconstruction from an electron microscope tilt series solving the alignment problem without gold particles;,citation_author=Joachim Dengler;,citation_publication_date=1989-07;,citation_cover_date=1989-07;,citation_year=1989;,citation_issue=3;,citation_doi=10/dx9ssk;,citation_issn=0304-3991;,citation_volume=30;,citation_journal_title=Ultramicroscopy;">
+<meta name="citation_reference" content="citation_title=Electron ptychography achieves atomic-resolution limits set by lattice vibrations;,citation_author=Zhen Chen;,citation_author=others;,citation_publication_date=2021;,citation_cover_date=2021;,citation_year=2021;,citation_issue=6544;,citation_volume=372;,citation_journal_title=Science;,citation_publisher=American Association for the Advancement of Science;">
+<meta name="citation_reference" content="citation_title=Three-dimensional elemental mapping at the atomic scale in bimetallic nanocrystals;,citation_author=Bart Goris;,citation_author=others;,citation_publication_date=2013;,citation_cover_date=2013;,citation_year=2013;,citation_issue=9;,citation_volume=13;,citation_journal_title=Nano letters;,citation_publisher=ACS Publications;">
+<meta name="citation_reference" content="citation_title=Correlating the three-dimensional atomic defects and electronic properties of two-dimensional transition metal dichalcogenides;,citation_author=Xuezeng Tian;,citation_author=others;,citation_publication_date=2020;,citation_cover_date=2020;,citation_year=2020;,citation_issue=8;,citation_volume=19;,citation_journal_title=Nature Materials;,citation_publisher=Nature Publishing Group;">
+<meta name="citation_reference" content="citation_title=Formation of bimetallic clusters in superfluid helium nanodroplets analysed by atomic resolution electron tomography;,citation_author=Georg Haberfehlner;,citation_author=others;,citation_publication_date=2015;,citation_cover_date=2015;,citation_year=2015;,citation_issue=1;,citation_volume=6;,citation_journal_title=Nature communications;,citation_publisher=Nature Publishing Group;">
+<meta name="citation_reference" content="citation_title=Three-dimensional imaging of dislocations in a nanoparticle at atomic resolution;,citation_author=Chien-Chun Chen;,citation_author=others;,citation_publication_date=2013;,citation_cover_date=2013;,citation_year=2013;,citation_issue=7443;,citation_volume=496;,citation_journal_title=Nature;,citation_publisher=Nature Publishing Group;">
+<meta name="citation_reference" content="citation_title=Enhanced phase contrast transfer using ptychography combined with a pre-specimen phase plate in a scanning transmission electron microscope;,citation_author=Hao Yang;,citation_author=Peter Ercius;,citation_author=Peter D. Nellist;,citation_author=Colin Ophus;,citation_publication_date=2016-12;,citation_cover_date=2016-12;,citation_year=2016;,citation_doi=10/f9fwhk;,citation_issn=0304-3991;,citation_volume=171;,citation_journal_title=Ultramicroscopy;">
+<meta name="citation_reference" content="citation_title=Atomic electron tomography: 3D structures without crystals;,citation_author=Jianwei Miao;,citation_author=Peter Ercius;,citation_author=Simon JL Billinge;,citation_publication_date=2016;,citation_cover_date=2016;,citation_year=2016;,citation_issue=6306;,citation_volume=353;,citation_journal_title=Science;,citation_publisher=American Association for the Advancement of Science;">
+<meta name="citation_reference" content="citation_title=Three-dimensional coordinates of individual atoms in materials revealed by electron tomography;,citation_author=Rui Xu;,citation_author=others;,citation_publication_date=2015;,citation_cover_date=2015;,citation_year=2015;,citation_issue=11;,citation_volume=14;,citation_journal_title=Nature materials;,citation_publisher=Nature Publishing Group;">
+<meta name="citation_reference" content="citation_title=Deciphering chemical order/disorder and material properties at the single-atom level;,citation_author=Yongsoo Yang;,citation_author=others;,citation_publication_date=2017;,citation_cover_date=2017;,citation_year=2017;,citation_issue=7639;,citation_volume=542;,citation_journal_title=Nature;,citation_publisher=Nature Publishing Group;">
+<meta name="citation_reference" content="citation_title=Observing crystal nucleation in four dimensions using atomic electron tomography;,citation_author=Jihan Zhou;,citation_author=others;,citation_publication_date=2019;,citation_cover_date=2019;,citation_year=2019;,citation_issue=7762;,citation_volume=570;,citation_journal_title=Nature;,citation_publisher=Nature Publishing Group;">
+<meta name="citation_reference" content="citation_title=A multiple scattering algorithm for three dimensional phase contrast atomic electron tomography;,citation_author=David Ren;,citation_author=Colin Ophus;,citation_author=Michael Chen;,citation_author=Laura Waller;,citation_publication_date=2020;,citation_cover_date=2020;,citation_year=2020;,citation_volume=208;,citation_journal_title=Ultramicroscopy;,citation_publisher=Elsevier;">
+<meta name="citation_reference" content="citation_title=Ion complexation waves emerge at the curved interfaces of layered minerals;,citation_author=Michael L. Whittaker;,citation_author=others;,citation_publication_date=2022;,citation_cover_date=2022;,citation_year=2022;,citation_issue=11;,citation_volume=13;,citation_journal_title=Nature communications;,citation_publisher=Nature Publishing Group;">
+<meta name="citation_reference" content="citation_title=Stabilization of NbTe3, VTe3, and TiTe3 via nanotube encapsulation;,citation_author=Scott Stonemeyer;,citation_author=others;,citation_publication_date=2020;,citation_cover_date=2020;,citation_year=2020;,citation_issue=12;,citation_volume=143;,citation_journal_title=Journal of the American Chemical Society;,citation_publisher=ACS Publications;">
+<meta name="citation_reference" content="citation_title=Metal-insulator transition in quasi-one-dimensional HfTe$_3$ in the few-chain limit;,citation_author=Scott Meyer;,citation_author=others;,citation_publication_date=2019;,citation_cover_date=2019;,citation_year=2019;,citation_issue=4;,citation_volume=100;,citation_journal_title=Physical Review B;,citation_publisher=APS;">
+<meta name="citation_reference" content="citation_title=Emergence of topologically nontrivial spin-polarized states in a segmented linear chain;,citation_author=Thang Pham;,citation_author=others;,citation_publication_date=2020;,citation_cover_date=2020;,citation_year=2020;,citation_issue=20;,citation_volume=124;,citation_journal_title=Physical Review Letters;,citation_publisher=APS;">
+<meta name="citation_reference" content="citation_title=Torsional instability in the single-chain limit of a transition metal trichalcogenide;,citation_author=Thang Pham;,citation_author=others;,citation_publication_date=2018;,citation_cover_date=2018;,citation_year=2018;,citation_issue=6399;,citation_volume=361;,citation_journal_title=Science;,citation_publisher=American Association for the Advancement of Science;">
+<meta name="citation_reference" content="citation_title=Targeting one-and two-dimensional ta–te structures via nanotube encapsulation;,citation_author=Scott Stonemeyer;,citation_author=others;,citation_publication_date=2022;,citation_cover_date=2022;,citation_year=2022;,citation_journal_title=Nano Letters;,citation_publisher=ACS Publications;">
+<meta name="citation_reference" content="citation_title=Isolation of single-wired transition-metal monochalcogenides by carbon nanotubes;,citation_author=Masataka Nagata;,citation_author=others;,citation_publication_date=2019;,citation_cover_date=2019;,citation_year=2019;,citation_issue=8;,citation_volume=19;,citation_journal_title=Nano Letters;,citation_publisher=ACS Publications;">
+<meta name="citation_reference" content="citation_title=Efficient growth and characterization of one-dimensional transition metal tellurides inside carbon nanotubes;,citation_author=Naoyuki Kanda;,citation_author=others;,citation_publication_date=2020;,citation_cover_date=2020;,citation_year=2020;,citation_issue=33;,citation_volume=12;,citation_journal_title=Nanoscale;,citation_publisher=Royal Society of Chemistry;">
+<meta name="citation_reference" content="citation_title=Room-temperature ferroelectricity in group-IV metal chalcogenide nanowires;,citation_author=Jun-Jie Zhang;,citation_author=Jie Guan;,citation_author=Shuai Dong;,citation_author=Boris I Yakobson;,citation_publication_date=2019;,citation_cover_date=2019;,citation_year=2019;,citation_issue=38;,citation_volume=141;,citation_journal_title=Journal of the American Chemical Society;,citation_publisher=ACS Publications;">
+<meta name="citation_reference" content="citation_title=Ultranarrow TaS2 nanoribbons;,citation_author=Jeffrey D Cain;,citation_author=others;,citation_publication_date=2021;,citation_cover_date=2021;,citation_year=2021;,citation_issue=7;,citation_volume=21;,citation_journal_title=Physical Review Letters;,citation_publisher=ACS Publications;">
+<meta name="citation_reference" content="citation_title=Te2Br: A new one-dimensional semiconductor with direct-band gap, high carrier mobility, superior flexibility, and strong quantum confinement effect;,citation_author=Xiao-Juan Ye;,citation_author=Biao-Hua Wei;,citation_author=Chun-Sheng Liu;,citation_publication_date=2021;,citation_cover_date=2021;,citation_year=2021;,citation_volume=416;,citation_journal_title=Physics Letters A;,citation_publisher=Elsevier;">
+<meta name="citation_reference" content="citation_title=Direct growth of single-metal-atom chains;,citation_author=Shasha Guo;,citation_author=others;,citation_publication_date=2022;,citation_cover_date=2022;,citation_year=2022;,citation_issue=3;,citation_volume=1;,citation_journal_title=Nature Synthesis;,citation_publisher=Nature Publishing Group;">
+<meta name="citation_reference" content="citation_title=An encapsulated helical one-dimensional cobalt iodide nanostructure;,citation_author=Eilidh Philp;,citation_author=others;,citation_publication_date=2003;,citation_cover_date=2003;,citation_year=2003;,citation_issue=12;,citation_volume=2;,citation_journal_title=Nature Materials;,citation_publisher=Nature Publishing Group;">
+<meta name="citation_reference" content="citation_title=Stochastic minibatch approach to the ptychographic iterative engine;,citation_author=Ashish Tripathi;,citation_author=Zichao Wendy Di;,citation_author=Zhang Jiang;,citation_author=Stefan M Wild;,citation_publication_date=2024;,citation_cover_date=2024;,citation_year=2024;,citation_issue=17;,citation_volume=32;,citation_journal_title=Optics Express;,citation_publisher=Optica Publishing Group;">
+<meta name="citation_reference" content="citation_title=Mixed low-dimensional nanomaterial: 2D ultranarrow MoS$_2$ inorganic nanoribbons encapsulated in quasi-1D carbon nanotubes;,citation_author=Zhiyong Wang;,citation_author=others;,citation_publication_date=2010;,citation_cover_date=2010;,citation_year=2010;,citation_issue=39;,citation_volume=132;,citation_journal_title=Journal of the American Chemical Society;,citation_publisher=ACS Publications;">
+<meta name="citation_reference" content="citation_title=Ultra-narrow WS 2 nanoribbons encapsulated in carbon nanotubes;,citation_author=Zhiyong Wang;,citation_author=others;,citation_publication_date=2011;,citation_cover_date=2011;,citation_year=2011;,citation_issue=1;,citation_volume=21;,citation_journal_title=Journal of Materials Chemistry;,citation_publisher=Royal Society of Chemistry;">
+<meta name="citation_reference" content="citation_title=A simple chemical method of opening and filling carbon nanotubes;,citation_author=SC Tsang;,citation_author=YK Chen;,citation_author=PJF Harris;,citation_author=MLH Green;,citation_publication_date=1994;,citation_cover_date=1994;,citation_year=1994;,citation_issue=6502;,citation_volume=372;,citation_journal_title=Nature;,citation_publisher=Nature Publishing Group;">
+<meta name="citation_reference" content="citation_title=Raman response and transport properties of tellurium atomic chains encapsulated in nanotubes;,citation_author=Jing-Kai Qin;,citation_author=others;,citation_publication_date=2020;,citation_cover_date=2020;,citation_year=2020;,citation_issue=3;,citation_volume=3;,citation_journal_title=Nature electronics;,citation_publisher=Nature Publishing Group;">
+<meta name="citation_reference" content="citation_title=Linear and helical cesium iodide atomic chains in ultranarrow single-walled carbon nanotubes: Impact on optical properties;,citation_author=Reza J Kashtiban;,citation_author=Jeremy Sloan;,citation_publication_date=2021;,citation_cover_date=2021;,citation_year=2021;,citation_issue=8;,citation_volume=15;,citation_journal_title=ACS nano;,citation_publisher=ACS Publications;">
+<meta name="citation_reference" content="citation_title=Phase-contrast imaging of multiply-scattering extended objects at atomic resolution by reconstruction of the scattering matrix;,citation_author=Philipp M Pelz;,citation_author=others;,citation_publication_date=2021;,citation_cover_date=2021;,citation_year=2021;,citation_issue=2;,citation_volume=3;,citation_journal_title=Physical Review Research;,citation_publisher=APS;">
+<meta name="citation_reference" content="citation_title=The abTEM code: Transmission electron microscopy from first principles;,citation_author=Jacob Madsen;,citation_author=Toma Susi;,citation_publication_date=2021;,citation_cover_date=2021;,citation_year=2021;,citation_issue=24;,citation_volume=1;,citation_journal_title=Open Research Europe;,citation_publisher=F1000 Research Limited;">
+<meta name="citation_reference" content="citation_title=A fast image simulation algorithm for scanning transmission electron microscopy;,citation_author=Colin Ophus;,citation_publication_date=2017;,citation_cover_date=2017;,citation_year=2017;,citation_issue=1;,citation_volume=3;,citation_journal_title=Advanced structural and chemical imaging;,citation_publisher=SpringerOpen;">
+<meta name="citation_reference" content="citation_title=Four-dimensional scanning transmission electron microscopy (4D-STEM): From scanning nanodiffraction to ptychography and beyond;,citation_author=Colin Ophus;,citation_publication_date=2019;,citation_cover_date=2019;,citation_year=2019;,citation_issue=3;,citation_volume=25;,citation_journal_title=Microscopy and Microanalysis;,citation_publisher=Cambridge University Press;">
+<meta name="citation_reference" content="citation_title=Sub-atomic resolution x-ray crystallography and neutron crystallography: Promise, challenges and potential;,citation_author=Matthew P Blakeley;,citation_author=Samar S Hasnain;,citation_author=Svetlana V Antonyuk;,citation_publication_date=2015;,citation_cover_date=2015;,citation_year=2015;,citation_issue=4;,citation_volume=2;,citation_journal_title=IUCrJ;,citation_publisher=International Union of Crystallography;">
+<meta name="citation_reference" content="citation_title=Single-particle cryo-EM—how did it get here and where will it go;,citation_author=Yifan Cheng;,citation_publication_date=2018;,citation_cover_date=2018;,citation_year=2018;,citation_issue=6405;,citation_volume=361;,citation_journal_title=Science;,citation_publisher=American Association for the Advancement of Science;">
+<meta name="citation_reference" content="citation_title=Crystal structure of HfTe 5;,citation_author=Sigrid Furuseth;,citation_author=Leif Brattas;,citation_author=Arne Kjekshus;,citation_publication_date=1973;,citation_cover_date=1973;,citation_year=1973;,citation_issue=7;,citation_volume=27;,citation_journal_title=Acta Chemica Scandinavica;">
+<meta name="citation_reference" content="citation_title=Electron crystallography: Present excitement, a nod to the past, anticipating the future;,citation_author=Robert M Glaeser;,citation_publication_date=1999;,citation_cover_date=1999;,citation_year=1999;,citation_issue=1;,citation_volume=128;,citation_journal_title=Journal of structural biology;,citation_publisher=Elsevier;">
+<meta name="citation_reference" content="citation_title=emClarity: Software for high-resolution cryo-electron tomography and subtomogram averaging;,citation_author=Benjamin A Himes;,citation_author=Peijun Zhang;,citation_publication_date=2018;,citation_cover_date=2018;,citation_year=2018;,citation_issue=11;,citation_volume=15;,citation_journal_title=Nature methods;,citation_publisher=Nature Publishing Group;">
+<meta name="citation_reference" content="citation_title=Application of nuclear magnetic resonance spectroscopy in organic chemistry: International series in organic chemistry;,citation_author=Lloyd Miles Jackman;,citation_author=Sever Sternhell;,citation_publication_date=2013;,citation_cover_date=2013;,citation_year=2013;,citation_volume=10;">
+<meta name="citation_reference" content="citation_title=Atom-by-atom structural and chemical analysis by annular dark-field electron microscopy;,citation_author=Ondrej L Krivanek;,citation_author=others;,citation_publication_date=2010;,citation_cover_date=2010;,citation_year=2010;,citation_issue=7288;,citation_volume=464;,citation_journal_title=Nature;,citation_publisher=Nature Publishing Group;">
+<meta name="citation_reference" content="citation_title=The cryo-EM method microcrystal electron diffraction (MicroED);,citation_author=Brent L Nannenga;,citation_author=Tamir Gonen;,citation_publication_date=2019;,citation_cover_date=2019;,citation_year=2019;,citation_issue=5;,citation_volume=16;,citation_journal_title=Nature methods;,citation_publisher=Nature Publishing Group;">
+<meta name="citation_reference" content="citation_title=Differential phase-contrast microscopy at atomic resolution;,citation_author=Naoya Shibata;,citation_author=others;,citation_publication_date=2012;,citation_cover_date=2012;,citation_year=2012;,citation_issue=8;,citation_volume=8;,citation_journal_title=Nature Physics;,citation_publisher=Nature Publishing Group;">
+<meta name="citation_reference" content="citation_title=Raman response and transport properties of tellurium atomic chains encapsulated in nanotubes;,citation_author=Jing-Kai Qin;,citation_author=others;,citation_publication_date=2020;,citation_cover_date=2020;,citation_year=2020;,citation_issue=3;,citation_volume=3;,citation_journal_title=Nature electronics;,citation_publisher=Nature Publishing Group;">
+<meta name="citation_reference" content="citation_title=Method for retrieval of the three-dimensional object potential by inversion of dynamical electron scattering;,citation_author=Wouter Van den Broek;,citation_author=Christoph T. Koch;,citation_publication_date=2012-12;,citation_cover_date=2012-12;,citation_year=2012;,citation_issue=24;,citation_doi=10.1103/PhysRevLett.109.245502;,citation_issn=0031-9007;,citation_volume=109;,citation_journal_title=Phys. Rev. Lett.;">
+<meta name="citation_reference" content="citation_title=Dynamics of annular bright field imaging in scanning transmission electron microscopy;,citation_author=S. D. Findlay;,citation_author=N. Shibata;,citation_author=H. Sawada;,citation_author=E. Okunishi;,citation_author=Y. Kondo;,citation_author=Y. Ikuhara;,citation_publication_date=2010-06;,citation_cover_date=2010-06;,citation_year=2010;,citation_issue=7;,citation_doi=10.1016/j.ultramic.2010.04.004;,citation_issn=0304-3991;,citation_volume=110;,citation_journal_title=Ultramicroscopy;">
+<meta name="citation_reference" content="citation_title=Electron-event representation data enable efficient cryoEM file storage with full preservation of spatial and temporal resolution;,citation_author=H. Guo;,citation_author=others;,citation_publication_date=2020-09;,citation_cover_date=2020-09;,citation_year=2020;,citation_fulltext_html_url=https://journals.iucr.org/m/issues/2020/05/00/fq5014/;,citation_issue=55;,citation_issn=2052-2525;,citation_volume=7;,citation_journal_title=IUCrJ;,citation_publisher=International Union of Crystallography;">
+<meta name="citation_reference" content="citation_title=Phase contrast STEM for thin samples: Integrated differential phase contrast;,citation_author=Ivan Lazić;,citation_author=Eric G. T. Bosch;,citation_author=Sorin Lazar;,citation_publication_date=2016-01;,citation_cover_date=2016-01;,citation_year=2016;,citation_doi=10.1016/j.ultramic.2015.10.011;,citation_issn=0304-3991;,citation_volume=160;,citation_journal_title=Ultramicroscopy;">
+<meta name="citation_reference" content="citation_title=Ultra-high contrast STEM imaging for segmented/pixelated detectors by maximizing the signal-to-noise ratio;,citation_author=Kousuke Ooe;,citation_author=Takehito Seki;,citation_author=Yuichi Ikuhara;,citation_author=Naoya Shibata;,citation_publication_date=2021;,citation_cover_date=2021;,citation_year=2021;,citation_volume=220;,citation_journal_title=Ultramicroscopy;,citation_publisher=Elsevier;">
+<meta name="citation_reference" content="citation_title=Joint iterative reconstruction and 3D rigid alignment for x-ray tomography;,citation_author=K Pande;,citation_author=JJ Donatelli;,citation_author=DY Parkinson;,citation_author=H Yan;,citation_author=JA Sethian;,citation_publication_date=2022;,citation_cover_date=2022;,citation_year=2022;,citation_issue=6;,citation_volume=30;,citation_journal_title=Optics Express;,citation_publisher=Optica Publishing Group;">
+<meta name="citation_reference" content="citation_title=Phase object reconstruction for 4D-STEM using deep learning;,citation_author=Thomas Friedrich;,citation_author=Chu-Ping Yu;,citation_author=Johan Verbeeck;,citation_author=Sandra Van Aert;,citation_publication_date=2023;,citation_cover_date=2023;,citation_year=2023;,citation_issue=1;,citation_volume=29;,citation_journal_title=Microscopy and Microanalysis;,citation_publisher=Oxford University Press US;">
+<meta name="citation_reference" content="citation_title=Deep-learning electron diffractive imaging;,citation_author=Dillan J Chang;,citation_author=others;,citation_publication_date=2023;,citation_cover_date=2023;,citation_year=2023;,citation_issue=1;,citation_volume=130;,citation_journal_title=Physical Review Letters;,citation_publisher=APS;">
+<meta name="citation_reference" content="citation_title=Real-time integration center of mass (riCOM) reconstruction for 4D STEM;,citation_author=Chu-Ping Yu;,citation_author=Thomas Friedrich;,citation_author=Daen Jannis;,citation_author=Sandra Van Aert;,citation_author=Johan Verbeeck;,citation_publication_date=2022;,citation_cover_date=2022;,citation_year=2022;,citation_issue=5;,citation_volume=28;,citation_journal_title=Microscopy and Microanalysis;,citation_publisher=Cambridge University Press;">
+<meta name="citation_reference" content="citation_title=Quantitative cryo-scanning transmission electron microscopy of biological materials;,citation_author=Michael Elbaum;,citation_publication_date=2018;,citation_cover_date=2018;,citation_year=2018;,citation_issue=41;,citation_volume=30;,citation_journal_title=Advanced Materials;,citation_publisher=Wiley Online Library;">
+<meta name="citation_reference" content="citation_title=Cryo-scanning transmission electron tomography of vitrified cells;,citation_author=Sharon Grayer Wolf;,citation_author=Lothar Houben;,citation_author=Michael Elbaum;,citation_publication_date=2014;,citation_cover_date=2014;,citation_year=2014;,citation_issue=4;,citation_volume=11;,citation_journal_title=Nature methods;,citation_publisher=Nature Publishing Group US New York;">
+<meta name="citation_reference" content="citation_title=Dynamische theorie der kristallstrukturanalyse durch elektronenbeugung im inhomogenen primaerstrahlwellenfeld;,citation_author=R. Hegerl;,citation_author=W. Hoppe;,citation_publication_date=1970;,citation_cover_date=1970;,citation_year=1970;,citation_issue=11;,citation_doi=10/gm6hq7;,citation_issn=0005-9021;,citation_volume=74;,citation_journal_title=Berichte der Bunsengesellschaft für physikalische Chemie;">
+<meta name="citation_reference" content="citation_title=Physically motivated global alignment method for electron tomography;,citation_author=Toby Sanders;,citation_author=Micah Prange;,citation_author=Cem Akatay;,citation_author=Peter Binev;,citation_publication_date=2015;,citation_cover_date=2015;,citation_year=2015;,citation_issue=1;,citation_volume=1;,citation_journal_title=Advanced Structural and Chemical Imaging;,citation_publisher=Springer;">
+<meta name="citation_reference" content="citation_title=Pytorch: An imperative style, high-performance deep learning library;,citation_author=Adam Paszke;,citation_author=others;,citation_publication_date=2019;,citation_cover_date=2019;,citation_year=2019;,citation_volume=32;,citation_journal_title=Advances in neural information processing systems;">
+<meta name="citation_reference" content="citation_title=Topology-scaling identification of layered solids and stable exfoliated 2D materials;,citation_author=Michael Ashton;,citation_author=Joshua Paul;,citation_author=Susan B Sinnott;,citation_author=Richard G Hennig;,citation_publication_date=2017;,citation_cover_date=2017;,citation_year=2017;,citation_issue=10;,citation_volume=118;,citation_journal_title=Physical review letters;,citation_publisher=APS;">
+<meta name="citation_reference" content="citation_title=Dynamische theorie der kristallstrukturanalyse durch elektronenbeugung im inhomogenen primärstrahlwellenfeld;,citation_author=R. Hegerl;,citation_author=W. Hoppe;,citation_publication_date=1970;,citation_cover_date=1970;,citation_year=1970;,citation_issue=11;,citation_doi=10/gm6hq7;,citation_issn=0005-9021;,citation_volume=74;,citation_journal_title=Berichte der Bunsengesellschaft für physikalische Chemie;">
+<meta name="citation_reference" content="citation_title=Hard-x-ray lensless imaging of extended objects;,citation_author=J. Rodenburg;,citation_author=others;,citation_publication_date=2007-01;,citation_cover_date=2007-01;,citation_year=2007;,citation_issue=3;,citation_doi=10.1103/PhysRevLett.98.034801;,citation_issn=0031-9007;,citation_volume=98;,citation_journal_title=Phys. Rev. Lett.;">
+<meta name="citation_reference" content="citation_title=Movable aperture lensless transmission microscopy: A novel phase retrieval algorithm;,citation_author=Helen Mary Louise Faulkner;,citation_author=JM Rodenburg;,citation_publication_date=2004;,citation_cover_date=2004;,citation_year=2004;,citation_issue=2;,citation_volume=93;,citation_journal_title=Physical Review Letters;,citation_publisher=APS;">
+<meta name="citation_reference" content="citation_title=An annealing algorithm to correct positioning errors in ptychography;,citation_author=A. M. Maiden;,citation_author=M. J. Humphry;,citation_author=M. C. Sarahan;,citation_author=B. Kraus;,citation_author=J. M. Rodenburg;,citation_publication_date=2012-09;,citation_cover_date=2012-09;,citation_year=2012;,citation_doi=10.1016/j.ultramic.2012.06.001;,citation_issn=0304-3991;,citation_volume=120;,citation_journal_title=Ultramicroscopy;">
+<meta name="citation_reference" content="citation_title=Ptychographic coherent diffractive imaging with orthogonal probe relaxation;,citation_author=M. Odstrcil;,citation_author=others;,citation_publication_date=2016-04;,citation_cover_date=2016-04;,citation_year=2016;,citation_issue=8;,citation_doi=10.1364/OE.24.008360;,citation_issn=1094-4087;,citation_volume=24;,citation_journal_title=Optics Express;">
+<meta name="citation_reference" content="citation_title=Mixed-state electron ptychography enables sub-angstrom resolution imaging with picometer precision at low dose;,citation_author=Zhen Chen;,citation_author=others;,citation_publication_date=2020-06;,citation_cover_date=2020-06;,citation_year=2020;,citation_issue=11;,citation_doi=10/gg2fbw;,citation_issn=2041-1723;,citation_volume=11;,citation_journal_title=Nature Communications;,citation_publisher=Nature Publishinsg Group;">
+<meta name="citation_reference" content="citation_title=Exact inversion of partially coherent dynamical electron scattering for picometric structure retrieval;,citation_author=Benedikt Diederichs;,citation_author=Ziria Herdegen;,citation_author=Achim Strauch;,citation_author=Frank Filbir;,citation_author=Knut Müller-Caspary;,citation_publication_date=2024-01;,citation_cover_date=2024-01;,citation_year=2024;,citation_issue=11;,citation_doi=10.1038/s41467-023-44268-x;,citation_issn=2041-1723;,citation_volume=15;,citation_journal_title=Nature Communications;,citation_publisher=Nature Publishing Group;">
+<meta name="citation_reference" content="citation_title=Local-orbital ptychography for ultrahigh-resolution imaging;,citation_author=Wenfeng Yang;,citation_author=Haozhi Sha;,citation_author=Jizhe Cui;,citation_author=Liangze Mao;,citation_author=Rong Yu;,citation_publication_date=2024-01;,citation_cover_date=2024-01;,citation_year=2024;,citation_doi=10.1038/s41565-023-01595-w;,citation_issn=1748-3395;,citation_journal_title=Nature Nanotechnology;,citation_publisher=Nature Publishing Group;">
+<meta name="citation_reference" content="citation_title=Multislice electron tomography using four-dimensional scanning transmission electron microscopy;,citation_author=Juhyeok Lee;,citation_author=Moosung Lee;,citation_author=YongKeun Park;,citation_author=Colin Ophus;,citation_author=Yongsoo Yang;,citation_publication_date=2023-05;,citation_cover_date=2023-05;,citation_year=2023;,citation_issue=5;,citation_doi=10.1103/PhysRevApplied.19.054062;,citation_volume=19;,citation_journal_title=Physical Review Applied;,citation_publisher=American Physical Society;">
+<meta name="citation_reference" content="citation_title=Electron ptychography of 2D materials to deep sub-ångström resolution;,citation_author=Yi Jiang;,citation_author=others;,citation_publication_date=2018-07;,citation_cover_date=2018-07;,citation_year=2018;,citation_issue=7714;,citation_doi=10/gdtk8h;,citation_issn=1476-4687;,citation_volume=559;,citation_journal_title=Nature;">
+<meta name="citation_reference" content="citation_title=Ptychographic transmission microscopy in three dimensions using a multi-slice approach.;,citation_author=A M Maiden;,citation_author=M J Humphry;,citation_author=J M Rodenburg;,citation_publication_date=2012-08;,citation_cover_date=2012-08;,citation_year=2012;,citation_issue=8;,citation_issn=1520-8532;,citation_volume=29;,citation_journal_title=J. Opt. Soc. Am. A. Opt. Image Sci. Vis.;">
+<meta name="citation_reference" content="citation_title=Extending the methodology of x-ray crystallography to allow imaging of micrometre-sized non-crystalline specimens;,citation_author=Jianwei Miao;,citation_author=Pambos Charalambous;,citation_author=Janos Kirz;,citation_publication_date=1999;,citation_cover_date=1999;,citation_year=1999;,citation_issue=July;,citation_volume=400;,citation_journal_title=Nature;">
+<meta name="citation_reference" content="citation_title=Reconstruction of an object from the modulus of its fourier transform;,citation_author=J. R. Fienup;,citation_publication_date=1978-07;,citation_cover_date=1978-07;,citation_year=1978;,citation_issue=1;,citation_doi=10/bqm9b4;,citation_issn=1539-4794;,citation_volume=3;,citation_journal_title=Optics Letters;,citation_publisher=Optical Society of America;">
+<meta name="citation_reference" content="citation_title=Probe retrieval in ptychographic coherent diffractive imaging.;,citation_author=Pierre Thibault;,citation_author=Martin Dierolf;,citation_author=Oliver Bunk;,citation_author=Andreas Menzel;,citation_author=Franz Pfeiffer;,citation_publication_date=2009-03;,citation_cover_date=2009-03;,citation_year=2009;,citation_issue=4;,citation_doi=10.1016/j.ultramic.2008.12.011;,citation_issn=0304-3991;,citation_volume=109;,citation_journal_title=Ultramicroscopy;">
+<meta name="citation_reference" content="citation_title=Modal decomposition of a propagating matter wave via electron ptychography;,citation_author=S. Cao;,citation_author=P. Kok;,citation_author=P. Li;,citation_author=A. M. Maiden;,citation_author=J. M. Rodenburg;,citation_publication_date=2016-12;,citation_cover_date=2016-12;,citation_year=2016;,citation_issue=6;,citation_doi=10/gddhmv;,citation_volume=94;,citation_journal_title=Physical Review A;">
+<meta name="citation_reference" content="citation_title=The theory of super-resolution electron microscopy via wigner-distribution deconvolution;,citation_author=J. M. Rodenburg;,citation_author=R. H. T. Bates;,citation_publication_date=1992-06;,citation_cover_date=1992-06;,citation_year=1992;,citation_issue=1655;,citation_doi=10.1098/rsta.1992.0050;,citation_issn=1364-503X;,citation_volume=339;,citation_journal_title=Philos. Trans. R. Soc. A Math. Phys. Eng. Sci.;">
+<meta name="citation_reference" content="citation_title=Low-dose phase retrieval of biological specimens using cryo-electron ptychography;,citation_author=Liqi Zhou;,citation_author=others;,citation_publication_date=2020-06;,citation_cover_date=2020-06;,citation_year=2020;,citation_issue=11;,citation_doi=10/gg7x6j;,citation_issn=2041-1723;,citation_volume=11;,citation_journal_title=Nature Communications;,citation_publisher=Nature Publishing Group;">
+<meta name="citation_reference" content="citation_title=py4DSTEM: A software package for four-dimensional scanning transmission electron microscopy data analysis;,citation_author=Benjamin H. Savitzky;,citation_author=others;,citation_publication_date=2021;,citation_cover_date=2021;,citation_year=2021;,citation_issue=4;,citation_doi=10.1017/S1431927621000477;,citation_volume=27;,citation_journal_title=Microscopy and Microanalysis;,citation_publisher=Cambridge University Press;">
+<meta name="citation_reference" content="citation_title=Enhanced phase contrast transfer using ptychography combined with a pre-specimen phase plate in a scanning transmission electron microscope;,citation_author=Hao Yang;,citation_author=Peter Ercius;,citation_author=Peter D. Nellist;,citation_author=Colin Ophus;,citation_publication_date=2016-12;,citation_cover_date=2016-12;,citation_year=2016;,citation_doi=10/f9fwhk;,citation_issn=0304-3991;,citation_volume=171;,citation_journal_title=Ultramicroscopy;">
+<meta name="citation_reference" content="citation_title=Efficient phase contrast imaging in STEM using a pixelated detector. Part 1: Experimental demonstration at atomic resolution;,citation_author=Timothy J Pennycook;,citation_author=others;,citation_publication_date=2015;,citation_cover_date=2015;,citation_year=2015;,citation_volume=151;,citation_journal_title=Ultramicroscopy;,citation_publisher=Elsevier;">
+<meta name="citation_reference" content="citation_title=Low-dose cryo electron ptychography via non-convex bayesian optimization;,citation_author=Philipp Michael Pelz;,citation_author=Wen Xuan Qiu;,citation_author=Robert Bücker;,citation_author=Günther Kassier;,citation_author=R. J. Dwayne Miller;,citation_publication_date=2017-08;,citation_cover_date=2017-08;,citation_year=2017;,citation_issue=1;,citation_doi=10.1038/s41598-017-07488-y;,citation_issn=2045-2322;,citation_volume=7;,citation_journal_title=Scientific Reports;">
+<meta name="citation_reference" content="citation_title=Simultaneous atomic-resolution electron ptychography and z-contrast imaging of light and heavy elements in complex nanostructures;,citation_author=H. Yang;,citation_author=others;,citation_publication_date=2016-08;,citation_cover_date=2016-08;,citation_year=2016;,citation_doi=10.1038/ncomms12532;,citation_issn=2041-1723;,citation_volume=7;,citation_journal_title=Nature Communications;">
+<meta name="citation_reference" content="citation_title=Ptychographic electron microscopy using high-angle dark-field scattering for sub-nanometre resolution imaging;,citation_author=MJ Humphry;,citation_author=B Kraus;,citation_author=AC Hurst;,citation_publication_date=2012;,citation_cover_date=2012;,citation_year=2012;,citation_doi=10.1038/ncomms1733;,citation_volume=3;,citation_journal_title=Nat. Comm.;">
+<meta name="citation_reference" content="citation_title=Electron ptychography of single biological macromolecules;,citation_author=Philipp M. Pelz;,citation_author=others;,citation_publication_date=2019-08;,citation_cover_date=2019-08;,citation_year=2019;,citation_issue=S2;,citation_doi=10/ggd47r;,citation_issn=1431-9276, 1435-8115;,citation_volume=25;,citation_journal_title=Microscopy and Microanalysis;">
+<meta name="citation_reference" content="citation_title=Electron ptychographic microscopy for three-dimensional imaging;,citation_author=Si Gao;,citation_author=others;,citation_publication_date=2017-07;,citation_cover_date=2017-07;,citation_year=2017;,citation_issue=11;,citation_doi=10/gbr2vm;,citation_issn=2041-1723;,citation_volume=8;,citation_journal_title=Nature Communications;,citation_publisher=Nature Publishing Group;">
+<meta name="citation_reference" content="citation_title=Resolution beyond the “information limit” in transmission electron microscopy;,citation_author=P. D. Nellist;,citation_author=B. C. McCallum;,citation_author=J. M. Rodenburg;,citation_publication_date=1995;,citation_cover_date=1995;,citation_year=1995;,citation_doi=10.1038/374630a0;,citation_issn=0028-0836;,citation_journal_title=Nature;">
+<meta name="citation_reference" content="citation_title=Ten implementations of ptychography;,citation_author=Peng Li;,citation_author=Andrew M. Maiden;,citation_publication_date=2018;,citation_cover_date=2018;,citation_year=2018;,citation_issue=3;,citation_doi=10/ggkjm3;,citation_issn=1365-2818;,citation_volume=269;,citation_journal_title=Journal of Microscopy;">
+<meta name="citation_reference" content="citation_title=Real-time interactive 4D-STEM phase-contrast imaging from electron event representation data: Less computation with the right representation;,citation_author=Philipp M. Pelz;,citation_author=Ian Johnson;,citation_author=Colin Ophus;,citation_author=Peter Ercius;,citation_author=Mary C. Scott;,citation_publication_date=2022-01;,citation_cover_date=2022-01;,citation_year=2022;,citation_issue=1;,citation_doi=10.1109/MSP.2021.3120981;,citation_issn=1558-0792;,citation_volume=39;,citation_journal_title=IEEE Signal Processing Magazine;">
+<meta name="citation_reference" content="citation_title=Iterative phase retrieval algorithms for scanning transmission electron microscopy;,citation_author=Georgios Varnavides;,citation_author=Stephanie M. Ribet;,citation_author=Steven E. Zeltmann;,citation_author=Yue Yu;,citation_author=Benjamin H. Savitzky;,citation_author=Dana O. Byrne;,citation_author=Frances I. Allen;,citation_author=Vinayak P. Dravid;,citation_author=Mary C. Scott;,citation_author=Colin Ophus;,citation_publication_date=2024-05;,citation_cover_date=2024-05;,citation_year=2024;,citation_fulltext_html_url=http://arxiv.org/abs/2309.05250;,citation_issue=arXiv:2309.05250;,citation_doi=10.48550/arXiv.2309.05250;,citation_publisher=arXiv;">
+<meta name="citation_reference" content="citation_title=Overcoming contrast reversals in focused probe ptychography of thick materials: An optimal pipeline for efficiently determining local atomic structure in materials science;,citation_author=C. Gao;,citation_author=C. Hofer;,citation_author=D. Jannis;,citation_author=A. Béché;,citation_author=J. Verbeeck;,citation_author=T. J. Pennycook;,citation_publication_date=2022-08;,citation_cover_date=2022-08;,citation_year=2022;,citation_issue=8;,citation_doi=10.1063/5.0101895;,citation_issn=0003-6951;,citation_volume=121;,citation_journal_title=Applied Physics Letters;">
+<meta name="citation_reference" content="citation_title=Low-dose cryo-electron ptychography of proteins at sub-nanometer resolution;,citation_author=Berk Küçükoğlu;,citation_author=Inayathulla Mohammed;,citation_author=Ricardo C. Guerrero-Ferreira;,citation_author=Massimo Kube;,citation_author=Julika Radecke;,citation_author=Stephanie M. Ribet;,citation_author=Georgios Varnavides;,citation_author=Max Leo Leidl;,citation_author=Kelvin Lau;,citation_author=Sergey Nazarov;,citation_author=Alexander Myasnikov;,citation_author=Carsten Sachse;,citation_author=Knut Müller-Caspary;,citation_author=Colin Ophus;,citation_author=Henning Stahlberg;,citation_publication_date=2024-05;,citation_cover_date=2024-05;,citation_year=2024;,citation_fulltext_html_url=https://www.biorxiv.org/content/10.1101/2024.02.12.579607v2;,citation_doi=10.1101/2024.02.12.579607;,citation_publisher=bioRxiv;">
+<meta name="citation_reference" content="citation_title=Cryogenic electron ptychographic single particle analysis with wide bandwidth information transfer;,citation_author=Xudong Pei;,citation_author=Liqi Zhou;,citation_author=Chen Huang;,citation_author=Mark Boyce;,citation_author=Judy S. Kim;,citation_author=Emanuela Liberti;,citation_author=Yiming Hu;,citation_author=Takeo Sasaki;,citation_author=Peter D. Nellist;,citation_author=Peijun Zhang;,citation_author=David I. Stuart;,citation_author=Angus I. Kirkland;,citation_author=Peng Wang;,citation_publication_date=2023-05;,citation_cover_date=2023-05;,citation_year=2023;,citation_issue=11;,citation_doi=10.1038/s41467-023-38268-0;,citation_issn=2041-1723;,citation_volume=14;,citation_journal_title=Nature Communications;,citation_publisher=Nature Publishing Group;">
+<meta name="citation_reference" content="citation_title=Optimizing contrast in automated 4D STEM cryotomography;,citation_author=Shahar Seifer;,citation_author=Peter Kirchweger;,citation_author=Karlina Maria Edel;,citation_author=Michael Elbaum;,citation_publication_date=2024-06;,citation_cover_date=2024-06;,citation_year=2024;,citation_issue=3;,citation_doi=10.1093/mam/ozae050;,citation_issn=1431-9276;,citation_volume=30;,citation_journal_title=Microscopy and Microanalysis;">
+<meta name="citation_reference" content="citation_title=Fourier shell correlation threshold criteria q;,citation_author=Marin Van Heel;,citation_author=Michael Schatz;,citation_publication_date=2005;,citation_cover_date=2005;,citation_year=2005;,citation_doi=10.1016/j.jsb.2005.05.009;,citation_volume=151;,citation_journal_title=J. Struct. Biol.;">
+<meta name="citation_reference" content="citation_title=A simple preparation method for full-range electron tomography of nanoparticles and fine powders;,citation_author=Elliot Padgett;,citation_author=Robert Hovden;,citation_author=Jessica C. DaSilva;,citation_author=Barnaby D. A. Levin;,citation_author=John L. Grazul;,citation_author=Tobias Hanrath;,citation_author=David A. Muller;,citation_publication_date=2017-12;,citation_cover_date=2017-12;,citation_year=2017;,citation_issue=6;,citation_doi=10.1017/S1431927617012764;,citation_issn=1431-9276, 1435-8115;,citation_volume=23;,citation_journal_title=Microscopy and Microanalysis;">
+<meta name="citation_reference" content="citation_title=A 360° single-axis tilt stage for the high-voltage electron microscope;,citation_author=David P Barnard;,citation_author=James N Turner;,citation_author=Joachim Frank;,citation_author=Bruce F McEwen;,citation_publication_date=1992;,citation_cover_date=1992;,citation_year=1992;,citation_issue=1;,citation_volume=167;,citation_journal_title=Journal of microscopy;,citation_publisher=Wiley Online Library;">
+<meta name="citation_reference" content="citation_title=Conical tomography of freeze-fracture replicas: A method for the study of integral membrane proteins inserted in phospholipid bilayers;,citation_author=S Lanzavecchia;,citation_author=F Cantele;,citation_author=PL Bellon;,citation_author=L Zampighi;,citation_author=M Kreman;,citation_author=E Wright;,citation_author=GA Zampighi;,citation_publication_date=2005;,citation_cover_date=2005;,citation_year=2005;,citation_issue=1;,citation_volume=149;,citation_journal_title=Journal of structural biology;,citation_publisher=Elsevier;">
+<meta name="citation_reference" content="citation_title=An image processing pipeline for electron cryo-tomography in RELION-5;,citation_author=Alister Burt;,citation_author=Bogdan Toader;,citation_author=Rangana Warshamanage;,citation_author=Andriko Kügelgen;,citation_author=Euan Pyle;,citation_author=Jasenko Zivanov;,citation_author=Dari Kimanius;,citation_author=Tanmay A. M. Bharat;,citation_author=Sjors H. W. Scheres;,citation_publication_date=2024-04;,citation_cover_date=2024-04;,citation_year=2024;,citation_fulltext_html_url=https://www.biorxiv.org/content/10.1101/2024.04.26.591129v1;,citation_doi=10.1101/2024.04.26.591129;,citation_publisher=bioRxiv;">
+<meta name="citation_reference" content="citation_title=Dual-axis tomography: An approach with alignment methods that preserve resolution;,citation_author=David N Mastronarde;,citation_publication_date=1997;,citation_cover_date=1997;,citation_year=1997;,citation_issue=3;,citation_volume=120;,citation_journal_title=Journal of structural biology;,citation_publisher=Elsevier;">
+<meta name="citation_reference" content="citation_title=Dose-efficient cryo-electron microscopy for thick samples using tilt-corrected scanning transmission electron microscopy, demonstrated on cells and single particles;,citation_author=Yue Yu;,citation_author=Katherine A. Spoth;,citation_author=Michael Colletta;,citation_author=Kayla X. Nguyen;,citation_author=Steven E. Zeltmann;,citation_author=Xiyue S. Zhang;,citation_author=Mohammadreza Paraan;,citation_author=Mykhailo Kopylov;,citation_author=Charlie Dubbeldam;,citation_author=Daniel Serwas;,citation_author=Hannah Siems;,citation_author=David A. Muller;,citation_author=Lena F. Kourkoutis;,citation_publication_date=2024-04;,citation_cover_date=2024-04;,citation_year=2024;,citation_fulltext_html_url=https://www.biorxiv.org/content/10.1101/2024.04.22.590491v1;,citation_doi=10.1101/2024.04.22.590491;,citation_publisher=bioRxiv;">
+<meta name="citation_reference" content="citation_title=Real-time interactive 4D-STEM phase-contrast imaging from electron event representation data;,citation_author=Philipp M. Pelz;,citation_author=Ian Johnson;,citation_author=Colin Ophus;,citation_author=Peter Ercius;,citation_author=Mary C. Scott;,citation_publication_date=2021-08;,citation_cover_date=2021-08;,citation_year=2021;,citation_issue=S1;,citation_doi=10/gm54m8;,citation_issn=1431-9276, 1435-8115;,citation_volume=27;,citation_journal_title=Microscopy and Microanalysis;">
+<meta name="citation_reference" content="citation_title=Phase reconstruction using fast binary 4D STEM data;,citation_author=C. M. O’Leary;,citation_author=others;,citation_publication_date=2020-03;,citation_cover_date=2020-03;,citation_year=2020;,citation_issue=12;,citation_doi=10/ggp7k7;,citation_issn=0003-6951;,citation_volume=116;,citation_journal_title=Applied Physics Letters;,citation_publisher=American Institute of Physics;">
+<meta name="citation_reference" content="citation_title=Determination of the structural phase and octahedral rotation angle in halide perovskites;,citation_author=Roberto Reis;,citation_author=others;,citation_publication_date=2018-02;,citation_cover_date=2018-02;,citation_year=2018;,citation_issue=7;,citation_doi=10.1063/1.5017537;,citation_issn=0003-6951;,citation_volume=112;,citation_journal_title=Applied Physics Letters;,citation_publisher=American Institute of Physics;">
+<meta name="citation_reference" content="citation_title=The structure of synthetic polypeptides. I. The transform of atoms on a helix;,citation_author=W. Cochran;,citation_author=F. H. Crick;,citation_author=V. Vand;,citation_publication_date=1952-09;,citation_cover_date=1952-09;,citation_year=1952;,citation_issue=55;,citation_doi=10.1107/S0365110X52001635;,citation_issn=0365-110X;,citation_volume=5;,citation_journal_title=Acta Crystallographica;,citation_publisher=International Union of Crystallography;">
+<meta name="citation_reference" content="citation_title=Electron ptychography of single biological macromolecules;,citation_author=Philipp M. Pelz;,citation_author=others;,citation_publication_date=2019-08;,citation_cover_date=2019-08;,citation_year=2019;,citation_issue=S2;,citation_doi=10/ggd47r;,citation_issn=1431-9276, 1435-8115;,citation_volume=25;,citation_journal_title=Microscopy and Microanalysis;">
+<meta name="citation_reference" content="citation_title=Extended ptychography in the transmission electron microscope: Possibilities and limitations.;,citation_author=F Hüe;,citation_author=JM Rodenburg;,citation_author=AM Maiden;,citation_author=PA Midgley;,citation_publication_date=2011-07;,citation_cover_date=2011-07;,citation_year=2011;,citation_issue=8;,citation_doi=10.1016/j.ultramic.2011.02.005;,citation_issn=1879-2723;,citation_volume=111;,citation_journal_title=Ultramicroscopy;">
+<meta name="citation_reference" content="citation_title=General framework for quantitative three-dimensional reconstruction from arbitrary detection geometries in TEM;,citation_author=Wouter Van den Broek;,citation_author=Christoph T. Koch;,citation_publication_date=2013-05;,citation_cover_date=2013-05;,citation_year=2013;,citation_issue=18;,citation_doi=10.1103/PhysRevB.87.184108;,citation_issn=1098-0121;,citation_volume=87;,citation_journal_title=Phys. Rev. B;">
+<meta name="citation_reference" content="citation_title=Ptychographic x-ray computed tomography at the nanoscale.;,citation_author=Martin Dierolf;,citation_author=others;,citation_publication_date=2010;,citation_cover_date=2010;,citation_year=2010;,citation_doi=10.1038/nature09419;,citation_issn=0028-0836;,citation_volume=467;,citation_journal_title=Nature;">
+<meta name="citation_reference" content="citation_title=Emerging photoluminescence in monolayer MoS2;,citation_author=Andrea Splendiani;,citation_author=others;,citation_publication_date=2010-04;,citation_cover_date=2010-04;,citation_year=2010;,citation_issue=4;,citation_doi=10.1021/nl903868w;,citation_issn=1530-6984;,citation_volume=10;,citation_journal_title=Nano Letters;,citation_publisher=American Chemical Society;">
+<meta name="citation_reference" content="citation_title=Van der waals density functionals applied to solids;,citation_author=Jiřı́ Klimeš;,citation_author=David R. Bowler;,citation_author=Angelos Michaelides;,citation_publication_date=2011-05;,citation_cover_date=2011-05;,citation_year=2011;,citation_fulltext_html_url=https://link.aps.org/doi/10.1103/PhysRevB.83.195131;,citation_doi=10.1103/PhysRevB.83.195131;,citation_volume=83;,citation_journal_title=Phys. Rev. B;,citation_publisher=American Physical Society;">
+<meta name="citation_reference" content="citation_title=Structural properties of ZrTe$_{5}$ and HfTe$_{5}$ as seen by powder diffraction;,citation_author=H Fjellvåg;,citation_author=A Kjekshus;,citation_publication_date=1986;,citation_cover_date=1986;,citation_year=1986;,citation_issue=2;,citation_volume=60;,citation_journal_title=Solid State Communications;,citation_publisher=Elsevier;">
+<meta name="citation_reference" content="citation_title=Ab initio molecular dynamics for liquid metals;,citation_abstract=We present ab initio quantum-mechanical molecular-dynamics calculations based on the calculation of the electronic ground state and of the Hellmann-Feynman forces in the local-density approximation at each molecular-dynamics step. This is possible using conjugate-gradient techniques for energy minimization, and predicting the wave functions for new ionic positions using sub-space lignment. This approach avoids the instabilities inherent in quantum-mechanical molecular-dynamics calculations for metals based on the use of a fictitious Newtonian dynamics for the electronic degree of freedom. This method gives perfect control of the adiabaticity and allows us to perform simulations over several picoseconds.;,citation_author=G. Kresse;,citation_author=J. Hafner;,citation_publication_date=1993;,citation_cover_date=1993;,citation_year=1993;,citation_doi=10.1103/PhysRevB.47.558;,citation_isbn=0163-1829 (Print)$\backslash$n0163-1829 (Linking);,citation_issn=01631829;,citation_volume=47;,citation_journal_title=Physical Review B;">
+<meta name="citation_reference" content="citation_title=Ab initio molecular-dynamics simulation of the liquid-metal–amorphous-semiconductor transition in germanium;,citation_abstract=We present ab initio quantum-mechanical molecular-dynamics simulations of the liquid-metal— amorphous-semiconductor transition in Ge. Our simulations are based on (a) finite-temperature density-functional theory of the one-electron states, (b) exact energy minimization and hence cal- culation of the exact Hellmann-Feynman forces after each molecular-dynamics step using precon- ditioned conjugate-gradient techniques, (c) accurate nonlocal pseudopotentials, and (d) Nose dynamics for generating a canonical ensemble. This method gives perfect control of the adiabaticity of the electron-ion ensemble and allows us to perform simulations over more than 30 ps. The computer-generated ensemble describes the structural, dynamic, and electronic properties of liquid and amorphous Ge in very good agreement with experiment. The simulation allows us to study in detail the changes in the structure-property relationship through the metal-semiconductor transition. We report a detailed analysis of the local structural properties and their changes induced by an annealing process. The geometrical, bonding, and spectral properties of defects in the disordered tetrahedral network are investigated and compared with experiment.;,citation_author=G. Kresse;,citation_author=J. Hafner;,citation_publication_date=1994;,citation_cover_date=1994;,citation_year=1994;,citation_fulltext_html_url=http://link.aps.org/doi/10.1103/PhysRevB.49.14251;,citation_issue=20;,citation_doi=10.1103/PhysRevB.49.14251;,citation_isbn=0163-1829 (Print)$\backslash$n0163-1829 (Linking);,citation_issn=0163-1829;,citation_volume=49;,citation_journal_title=Physical Review B;">
+<meta name="citation_reference" content="citation_title=Efficiency of ab initio total energy calculations for metals and semiconductors using a plane-wave basis set;,citation_abstract=We present a detailed description and comparison of algorithms for performing ab-initio quantum-mechanical calculations using pseudopotentials and a plane-wave basis set. We will discuss: (a) partial occupancies within the framework of the linear tetrahedron method and the finite temperature density-functional theory, (b) iterative methods for the diagonalization of the Konn-Sham Hamiltonian and a discussion of an efficient iterative method based on the ideas of Pulay’s residual minimization, which is close to an order N$\backslash$n 2$\backslash$n atoms scaling even for relatively large systems, (c) efficient Broyden-like and Pulay-like mixing methods for the charge density including a new special ’preconditioning’ optimized for a plane-wave basis set, (d) conjugate gradient methods for minimizing the electronic free energy with respect to all degrees of freedom simultaneously. We have implemented these algorithms within a powerful package called VAMP (Vienna ab-initio molecular-dynamics package). The program and the techniques have been used successfully for a large number of different systems (liquid and amorphous semiconductors, liquid simple and transition metals, metallic and semi-conducting surfaces, phonons in simple metals, transition metals and semiconductors) and turned out to be very reliable.;,citation_author=G. Kresse;,citation_author=J. Furthmüller;,citation_publication_date=1996;,citation_cover_date=1996;,citation_year=1996;,citation_doi=10.1016/0927-0256(96)00008-0;,citation_isbn=0927-0256;,citation_issn=09270256;,citation_volume=6;,citation_journal_title=Computational Materials Science;">
+<meta name="citation_reference" content="citation_title=Projector augmented-wave method;,citation_author=P. E. Blöchl;,citation_publication_date=1994;,citation_cover_date=1994;,citation_year=1994;,citation_issue=24;,citation_doi=https://doi.org/10.1103/PhysRevB.50.17953;,citation_volume=50;,citation_journal_title=Physical Review B;">
+<meta name="citation_reference" content="citation_title=From ultrasoft pseudopotentials to the projector augmented-wave method;,citation_abstract=The formal relationship between ultrasoft (US) Vanderbilt-type pseudopotentials and Blöchl’s projector augmented wave (PAW) method is derived. It is shown that the total energy functional for US pseudopotentials can be obtained by linearization of two terms in a slightly modified PAW total energy functional. The Hamilton operator, the forces, and the stress tensor are derived for this modified PAW functional. A simple way to implement the PAW method in existing plane-wave codes supporting US pseudopotentials is pointed out. In addition, critical tests are presented to compare the accuracy and efficiency of the PAW and the US pseudopotential method with relaxed core all electron methods. These tests include small molecules (H2,H2O,Li2,N2,F2,BF3,SiF4) and several bulk systems (diamond, Si, V, Li, Ca, CaF2, Fe, Co, Ni). Particular attention is paid to the bulk properties and magnetic energies of Fe, Co, and Ni.;,citation_author=G. Kresse;,citation_author=D. Joubert;,citation_publication_date=1999;,citation_cover_date=1999;,citation_year=1999;,citation_doi=10.1103/PhysRevB.59.1758;,citation_isbn=0163-1829;,citation_issn=1098-0121;,citation_volume=59;,citation_journal_title=Physical Review B;">
+<meta name="citation_reference" content="citation_title=SymTopo: An automatic tool for calculating topological properties of nonmagnetic crystalline materials;,citation_author=Yuqing He;,citation_author=others;,citation_publication_date=2019;,citation_cover_date=2019;,citation_year=2019;,citation_issue=8;,citation_doi=10.1088/1674-1056/28/8/087102;,citation_volume=28;,citation_journal_title=Chinese Physics B;,citation_publisher=IOP Publishing;">
+<meta name="citation_reference" content="citation_title=Unraveling the topology of ZrTe$_5$ by changing temperature;,citation_author=Bartomeu Monserrat;,citation_author=Awadhesh Narayan;,citation_publication_date=2019-12;,citation_cover_date=2019-12;,citation_year=2019;,citation_fulltext_html_url=https://link.aps.org/doi/10.1103/PhysRevResearch.1.033181;,citation_doi=10.1103/PhysRevResearch.1.033181;,citation_volume=1;,citation_journal_title=Phys. Rev. Research;,citation_publisher=American Physical Society;">
+<meta name="citation_reference" content="citation_title=Thermodynamic signature of dirac electrons across a possible topological transition in ${\mathrm{ZrTe}}_{5}$;,citation_author=Nityan L. Nair;,citation_author=others;,citation_publication_date=2018-01;,citation_cover_date=2018-01;,citation_year=2018;,citation_fulltext_html_url=https://link.aps.org/doi/10.1103/PhysRevB.97.041111;,citation_doi=10.1103/PhysRevB.97.041111;,citation_volume=97;,citation_journal_title=Phys. Rev. B;,citation_publisher=American Physical Society;">
+<meta name="citation_reference" content="citation_title=Resolution beyond the “information limit” in transmission electron microscopy;,citation_author=PD Nellist;,citation_author=BC McCallum;,citation_author=John M Rodenburg;,citation_publication_date=1995;,citation_cover_date=1995;,citation_year=1995;,citation_issue=6523;,citation_volume=374;,citation_journal_title=Nature;,citation_publisher=Nature Publishing Group;">
+<meta name="citation_reference" content="citation_title=Massless dirac fermions in ZrTe$_2$ semimetal grown on InAs (111) by van der Waals epitaxy;,citation_author=Polychronis Tsipas;,citation_author=others;,citation_publication_date=2018;,citation_cover_date=2018;,citation_year=2018;,citation_issue=2;,citation_volume=12;,citation_journal_title=ACS nano;,citation_publisher=ACS Publications;">
+<meta name="citation_reference" content="citation_title=Evidence for a strong topological insulator phase in ZrTe 5;,citation_author=Giulia Manzoni;,citation_author=others;,citation_publication_date=2016;,citation_cover_date=2016;,citation_year=2016;,citation_issue=23;,citation_volume=117;,citation_journal_title=Physical Review Letters;,citation_publisher=APS;">
+</head>
+
+<body>
+
+<header id="title-block-header" class="quarto-title-block default toc-left page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Multi-slice electron ptychographic tomography for three-dimensional phase-contrast microscopy beyond the depth of field limits</h1>
+          </div>
+
+    
+    <div class="quarto-title-meta-container">
+      <div class="quarto-title-meta-column-start">
+            <div class="quarto-title-meta-author">
+          <div class="quarto-title-meta-heading">Authors</div>
+          <div class="quarto-title-meta-heading">Affiliations</div>
+          
+                <div class="quarto-title-meta-contents">
+            <p class="author">Andrey Romanov </p>
+          </div>
+                <div class="quarto-title-meta-contents">
+                    <p class="affiliation">
+                        IMN &amp; CENEM, FAU
+                      </p>
+                  </div>
+                      <div class="quarto-title-meta-contents">
+            <p class="author">Min Gee Cho </p>
+          </div>
+                <div class="quarto-title-meta-contents">
+                    <p class="affiliation">
+                        The Molecular Foundry
+                      </p>
+                    <p class="affiliation">
+                        Department of Materials Science and Engineering, UC Berkeley
+                      </p>
+                  </div>
+                      <div class="quarto-title-meta-contents">
+            <p class="author">Mary Cooper Scott </p>
+          </div>
+                <div class="quarto-title-meta-contents">
+                    <p class="affiliation">
+                        Department of Materials Science and Engineering, UC Berkeley
+                      </p>
+                    <p class="affiliation">
+                        MSD, LBNL
+                      </p>
+                    <p class="affiliation">
+                        The Molecular Foundry
+                      </p>
+                  </div>
+                      <div class="quarto-title-meta-contents">
+            <p class="author">Philipp Pelz <a href="mailto:philipp.pelz@fau.de" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> <a href="https://orcid.org/0000-0002-8009-4515" class="quarto-title-author-orcid"> <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg=="></a></p>
+          </div>
+                <div class="quarto-title-meta-contents">
+                    <p class="affiliation">
+                        IMN &amp; CENEM, FAU
+                      </p>
+                  </div>
+                    </div>
+        
+        <div class="quarto-title-meta">
+
+                      
+                <div>
+            <div class="quarto-title-meta-heading">Published</div>
+            <div class="quarto-title-meta-contents">
+              <p class="date">November 1, 2024</p>
+            </div>
+          </div>
+          
+                
+              </div>
+      </div>
+      <div class="quarto-title-meta-column-end quarto-other-formats-target">
+      </div>
+    </div>
+
+    <div>
+      <div class="abstract">
+        <div class="block-title">Abstract</div>
+        <p>Electron ptychography has revolutionized atomic-scale imaging by providing exceptional contrast for both light and heavy elements. While current technology can achieve remarkable lateral resolution below 0.5 Ångstroms, the depth (axial) resolution has remained limited to several nanometers—until now.</p>
+        <p>In this work, we introduce multi-slice ptychographic electron tomography, a breakthrough technique that achieves true 3D atomic-resolution imaging beyond conventional depth of field limits. Using a Co₃O₄ nanocube as our test subject, we demonstrate:</p>
+        <ul>
+        <li>Unprecedented 3D resolution: 2Å axial and 0.7Å transverse resolution</li>
+        <li>Large imaging volume: (18.2 nm)³</li>
+        <li>13.5× improvement in depth resolution compared to existing methods</li>
+        </ul>
+        <p>This advancement significantly expands the capabilities of high-resolution electron microscopy, opening new possibilities for studying larger material volumes at atomic resolution.</p>
+        <p>Our ongoing research focuses on further refinements to enable 3D imaging of individual weakly scattering atoms, promising even more detailed insights into material structures.</p>
+      </div>
+    </div>
+
+
+    <div class="quarto-other-links-text-target">
+    </div>  </div>
+</header><div id="quarto-content" class="page-columns page-rows-contents page-layout-article toc-left">
+<div id="quarto-sidebar-toc-left" class="sidebar toc-left">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#contributors" id="toc-contributors" class="nav-link active" data-scroll-target="#contributors"><span class="header-section-number">1</span> Contributors</a></li>
+  <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results"><span class="header-section-number">2</span> Results</a></li>
+  <li><a href="#sec-data-methods" id="toc-sec-data-methods" class="nav-link" data-scroll-target="#sec-data-methods"><span class="header-section-number">3</span> Data &amp; Methods</a></li>
+  </ul>
+</nav>
+</div>
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+</div>
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+  
+
+
+<p>This is the project page for our article “Multi-slice electron ptychographic tomography for three-dimensional phase-contrast microscopy beyond the depth of field limits” published in <em>Journal of Physics: Materials</em>.</p>
+<section id="contributors" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="contributors"><span class="header-section-number">1</span> Contributors</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Picture</th>
+<th>Name</th>
+<th>Links</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><img src="images/authors/andrey.jpg" class="img-fluid" width="100"></td>
+<td>Andrey Romanov</td>
+<td></td>
+</tr>
+<tr class="even">
+<td><img src="images/authors/min_gee_cho.jpeg" class="img-fluid" width="100"></td>
+<td>Min Gee Cho</td>
+<td><a href="https://scholar.google.com/citations?user=RxSmujsAAAAJ&amp;hl=en">Google Scholar</a></td>
+</tr>
+<tr class="odd">
+<td><img src="images/authors/mary_scott.png" class="img-fluid" width="100"></td>
+<td>Mary C. Scott</td>
+<td><a href="https://mse.berkeley.edu/people_new/scott/">Website</a> • <a href="https://scholar.google.com/citations?user=QQaPgTwAAAAJ&amp;hl=en">Google Scholar</a></td>
+</tr>
+<tr class="even">
+<td><img src="images/authors/pelz_philipp.jpg" class="img-fluid" width="100"></td>
+<td>Philipp M. Pelz</td>
+<td><a href="https://philipppelz.github.io">Website</a> • <a href="https://github.com/PhilippPelz">GitHub</a> • <a href="https://scholar.google.com/citations?user=d-lXKR8AAAAJ&amp;hl=en">Google Scholar</a></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="results" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="results"><span class="header-section-number">2</span> Results</h2>
+</section>
+<section id="sec-data-methods" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="sec-data-methods"><span class="header-section-number">3</span> Data &amp; Methods</h2>
+<p>The data and methods are available on <a href="https://doi.org/...">Zenodo</a>. The code is available on <a href="https://github.com/...">GitHub</a>, and the manuscript is available at <a href="https://osf.io/...">OSF</a>.</p>
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-citation"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@online{romanov2024,
+  author = {Romanov, Andrey and Gee Cho, Min and Cooper Scott, Mary and
+    Pelz, Philipp},
+  title = {Multi-Slice Electron Ptychographic Tomography for
+    Three-Dimensional Phase-Contrast Microscopy Beyond the Depth of
+    Field Limits},
+  date = {2024-11-01},
+  url = {https://doi.org/...},
+  doi = {10.1234/xxx},
+  langid = {en},
+  abstract = {Electron ptychography has revolutionized atomic-scale
+    imaging by providing exceptional contrast for both light and heavy
+    elements. While current technology can achieve remarkable lateral
+    resolution below 0.5 Ångstroms, the depth (axial) resolution has
+    remained limited to several nanometers—until now. In this work, we
+    introduce multi-slice ptychographic electron tomography, a
+    breakthrough technique that achieves true 3D atomic-resolution
+    imaging beyond conventional depth of field limits. Using a Co₃O₄
+    nanocube as our test subject, we demonstrate: - Unprecedented 3D
+    resolution: 2Å axial and 0.7Å transverse resolution - Large imaging
+    volume: (18.2 nm)\textsuperscript{3} - 13.5× improvement in depth
+    resolution compared to existing methods This advancement
+    significantly expands the capabilities of high-resolution electron
+    microscopy, opening new possibilities for studying larger material
+    volumes at atomic resolution. Our ongoing research focuses on
+    further refinements to enable 3D imaging of individual weakly
+    scattering atoms, promising even more detailed insights into
+    material structures.}
+}
+</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-romanov2024" class="csl-entry quarto-appendix-citeas" role="listitem">
+Romanov, Andrey, Min Gee Cho, Mary Cooper Scott, and Philipp Pelz. 2024.
+<span>“Multi-Slice Electron Ptychographic Tomography for
+Three-Dimensional Phase-Contrast Microscopy Beyond the Depth of Field
+Limits.”</span> Journal of Physics: Materials. November 1, 2024. <a href="https://doi.org/10.1234/xxx">https://doi.org/10.1234/xxx</a>.
+</div></div></section></div></main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
