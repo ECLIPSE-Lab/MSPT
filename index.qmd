@@ -1,82 +1,118 @@
 ---
-title: "Multi-slice electron ptychographic tomography for three-dimensional phase-contrast microscopy beyond the depth of field limits"
-authors:
-  - name: Andrey Romanov
-    affiliations:
-      - ref: fau
-  - name: Min Gee Cho
-    affiliations:
-      - ref: foundry
-      - ref: ucb_materials
-  - name: Mary Cooper Scott
-    affiliations:
-      - ref: ucb_materials
-      - ref: lbl_msd
-      - ref: foundry
-  - name: Philipp Pelz
-    roles:
-      - Investigation
-      - Project administration
-      - Software
-      - Visualization
-    orcid: 0000-0002-8009-4515
-    corresponding: true
-    affiliations:
-      - ref: fau
-    email: philipp.pelz@fau.de
-
-affiliations:
-  - id: fau
-    name: IMN & CENEM, FAU
-  - id: ucb_materials
-    name: Department of Materials Science and Engineering, UC Berkeley
-  - id: lbl_msd
-    name: MSD, LBNL
-  - id: foundry
-    name: The Molecular Foundry
-
+title: "Project page: Multi-slice Electron Ptychographic Tomography for Three-dimensional Phase-contrast Microscopy beyond the Depth of Focus Limits"
 date: Nov 2024
-abstract: |
-    Electron ptychography has revolutionized atomic-scale imaging by providing exceptional contrast for both light and heavy elements. While current technology can achieve remarkable lateral resolution below 0.5 Ångstroms, the depth (axial) resolution has remained limited to several nanometers—until now.
-
-    In this work, we introduce multi-slice ptychographic electron tomography, a breakthrough technique that achieves true 3D atomic-resolution imaging beyond conventional depth of field limits. Using a Co₃O₄ nanocube as our test subject, we demonstrate:
-
-    - Unprecedented 3D resolution: 2Å axial and 0.7Å transverse resolution
-    - Large imaging volume: (18.2 nm)³
-    - 13.5× improvement in depth resolution compared to existing methods
-
-    This advancement significantly expands the capabilities of high-resolution electron microscopy, opening new possibilities for studying larger material volumes at atomic resolution. 
-    
-    Our ongoing research focuses on further refinements to enable 3D imaging of individual weakly scattering atoms, promising even more detailed insights into material structures.
-key-points:
-  - Large imaging volume: (18.2 nm)³
-  - 13.5× improvement in depth resolution compared to existing methods
 bibliography: references.bib
 citation:  
+  title: "Multi-slice Electron Ptychographic Tomography for Three-dimensional Phase-contrast Microscopy beyond the Depth of Focus Limits"
+  type: article-journal
   container-title: "Journal of Physics: Materials"
   doi: "10.1234/xxx"
-  url: "https://doi.org/..."
-  abstract: "..."
+  url: "https://doi.org/..."  
+  volume: 21
+  issue: 2
+  author: 
+    - family: Romanov
+      given: Andrey
+    - family: Cho
+      given: Min Gee
+    - family: Scott
+      given: Mary C.
+    - family: Pelz
+      given: Philipp M.
 
-number-sections: true
+number-sections: false
 jupyter: python3
+
 ---
 
-This is the project page for our article "Multi-slice electron ptychographic tomography for three-dimensional phase-contrast microscopy beyond the depth of field limits" published in *Journal of Physics: Materials*.
 
-## Contributors
 
-| Picture | Name | Links |
-|---------|------|--------|
-| ![](images/authors/andrey.jpg){width=100} | Andrey Romanov |  | 
-| ![](images/authors/min_gee_cho.jpeg){width=100} | Min Gee Cho | [Google Scholar](https://scholar.google.com/citations?user=RxSmujsAAAAJ&hl=en) |
-| ![](images/authors/mary_scott.png){width=100} | Mary C. Scott | [Website](https://mse.berkeley.edu/people_new/scott/) • [Google Scholar](https://scholar.google.com/citations?user=QQaPgTwAAAAJ&hl=en) |
-| ![](images/authors/pelz_philipp.jpg){width=100} | Philipp M. Pelz | [Website](https://philipppelz.github.io) • [GitHub](https://github.com/PhilippPelz) • [Google Scholar](https://scholar.google.com/citations?user=d-lXKR8AAAAJ&hl=en) |
+:::: {.columns}
 
-## Results
+::: {.column width="50%"}
 
-## Data & Methods {#sec-data-methods}
+[![](images/eclipse_header.png){width=300}](https://pelzlab.science)
 
-The data and methods are available on [Zenodo](https://doi.org/...).
-The code is available on [GitHub](https://github.com/...), and the manuscript is available at [OSF](https://osf.io/...).
+
+:::
+
+::: {.column width="25%"}
+[![](images/github.jpeg){width=120}](https://github.com/ECLIPSE-Lab)
+
+
+**Github Code**
+:::
+
+::: {.column width="25%"}
+[![](images/paper.png){width=120}](https://github.com/ECLIPSE-Lab)
+
+
+**Original Paper**
+:::
+
+::::
+
+## Authors
+
+:::: {.columns}
+
+::: {.column width="25%"}
+**Andrey Romanov**
+![](images/authors/andrey.jpg){width=120}
+
+
+:::
+
+::: {.column width="25%"}
+
+**Min Gee Cho**
+![](images/authors/min_gee_cho.jpeg){width=120}
+
+
+[Google Scholar](https://scholar.google.com/citations?user=RxSmujsAAAAJ&hl=en)
+:::
+
+::: {.column width="25%"}
+**Mary C. Scott**
+![](images/authors/mary_scott.png){width=120}
+
+
+
+[Website](https://mse.berkeley.edu/people_new/scott/) • [Google Scholar](https://scholar.google.com/citations?user=QQaPgTwAAAAJ&hl=en)
+:::
+
+::: {.column width="25%"}
+**Philipp M. Pelz**
+![](images/authors/pelz_philipp.jpg){width=120}
+
+
+
+[Website](https://philipppelz.github.io) • [GitHub](https://github.com/PhilippPelz) • [Google Scholar](https://scholar.google.com/citations?user=d-lXKR8AAAAJ&hl=en)
+:::
+
+::::
+
+## Teaser
+
+<video width="100%" height="100%" muted="" controls="" loop="" preload="metadata" poster="https://pelzlab.science/MSPT/images/teaser.png">
+  <source src="images/video.mp4" type="video/mp4">
+Your browser does not support the video tag.
+</video>
+
+## Short Summary
+Electron ptychography has revolutionized atomic-scale imaging by providing exceptional contrast for both light and heavy elements. While current technology can achieve remarkable lateral resolution below 0.5 Ångstroms, the depth (axial) resolution has remained limited to several nanometers—until now.
+
+In this work, we introduce multi-slice ptychographic electron tomography, a breakthrough technique that achieves true 3D atomic-resolution imaging beyond conventional depth of focus limits. Using a Co₃O₄ nanocube as our test subject, we demonstrate:
+
+- High-resolution 3D phase-contrast imaging: 2Å axial and 0.7Å transverse resolution
+- Large imaging volume: (18.2 nm)³
+- 13.5× improvement in depth resolution compared to existing phase-contrast methods providing 3D imaging beyond the depth of focus limits
+
+This advancement significantly expands the capabilities of high-resolution electron microscopy, opening new possibilities for studying larger material volumes at atomic resolution. 
+
+Our ongoing research focuses on further refinements to enable 3D imaging of individual weakly scattering atoms in large volumes, promising even more detailed insights into material structures.
+
+
+
+
 
