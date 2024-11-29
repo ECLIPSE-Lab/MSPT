@@ -37,7 +37,7 @@ jupyter: python3
 :::
 
 ::: {.column width="25%"}
-[![](images/github.jpeg){width=120}](https://github.com/ECLIPSE-Lab)
+[![](images/github.jpeg){width=120}](https://github.com/ECLIPSE-Lab/MSPT_code)
 
 
 **Github Code**
@@ -60,7 +60,7 @@ jupyter: python3
 **Andrey Romanov**
 ![](images/authors/andrey.jpg){width=120}
 
-
+[LinkedIn](https://www.linkedin.com/in/avmromanov/)
 :::
 
 ::: {.column width="25%"}
@@ -78,23 +78,23 @@ jupyter: python3
 
 
 
-[Website](https://mse.berkeley.edu/people_new/scott/) • [Google Scholar](https://scholar.google.com/citations?user=QQaPgTwAAAAJ&hl=en)
+[Website](https://mse.berkeley.edu/people_new/scott/) 
+
+[Google Scholar](https://scholar.google.com/citations?user=QQaPgTwAAAAJ&hl=en)
 :::
 
 ::: {.column width="25%"}
 **Philipp M. Pelz**
 ![](images/authors/pelz_philipp.jpg){width=120}
 
-
-
-[Website](https://philipppelz.github.io) • [GitHub](https://github.com/PhilippPelz) • [Google Scholar](https://scholar.google.com/citations?user=d-lXKR8AAAAJ&hl=en)
+[Google Scholar](https://scholar.google.com/citations?user=d-lXKR8AAAAJ&hl=en)
 :::
 
 ::::
 
 ## Teaser
 
-<video width="100%" height="100%" muted="" controls="" loop="" preload="metadata" poster="https://pelzlab.science/MSPT/images/teaser.png">
+<video width="100%" height="100%" autoplay muted controls loop allowfullscreen preload="metadata" controlslist="nodownload noplaybackrate" poster="https://pelzlab.science/MSPT/images/eclipse_header.png">
   <source src="images/video.mp4" type="video/mp4">
 Your browser does not support the video tag.
 </video>
