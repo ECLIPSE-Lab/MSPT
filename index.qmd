@@ -1,15 +1,13 @@
 ---
 title: "Project page: Multi-slice Electron Ptychographic Tomography for Three-dimensional Phase-contrast Microscopy beyond the Depth of Focus Limits"
-date: Nov 2024
+date: Dec 2024
 bibliography: references.bib
 citation:  
   title: "Multi-slice Electron Ptychographic Tomography for Three-dimensional Phase-contrast Microscopy beyond the Depth of Focus Limits"
   type: article-journal
   container-title: "Journal of Physics: Materials"
-  doi: "10.1234/xxx"
-  url: "https://doi.org/..."  
-  volume: 21
-  issue: 2
+  doi: "10.1088/2515-7639/ad9ad2"
+  url: "https://doi.org/10.1088/2515-7639/ad9ad2"  
   author: 
     - family: Romanov
       given: Andrey
@@ -44,7 +42,7 @@ jupyter: python3
 :::
 
 ::: {.column width="25%"}
-[![](images/paper.png){width=120}](https://github.com/ECLIPSE-Lab)
+[![](images/paper.png){width=120}](https://doi.org/10.1088/2515-7639/ad9ad2)
 
 
 **Original Paper**
